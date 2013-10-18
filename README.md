@@ -1,0 +1,7 @@
+Bootstrap Juqery Plguin Library
+----
+Some jQuery plugins based on bootstrap, have fun.
+
+Based on
+    bootstrap:  3.x
+    jquery:     1.x
