@@ -3,18 +3,46 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>::ENLOGIC::</title>
+<title>Bootstrap - jQuery - Plugin</title>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <!--[if lt IE 9]>
   <script src="js/html5shiv.js"></script>
   <script src="js/respond.min.js"></script>
 <![endif]-->
 <style>
+.github-links{
+  background-color: #EEEEEE;
+  border-bottom: 1px solid #DDDDDD;
+  margin-bottom: 40px;
+  text-align: center;
+}
 
+.github-links li{
+  display: inline-block;
+  list-style: none outside none;
+  margin: 16px 0 2px;
+}
+
+.carousel .item{
+  min-height: 400px;
+}
+
+.carousel .carousel-caption{
+  bottom: auto;
+}
+
+#myCarousel{
+  background-color: #B24926;
+}
+
+#home{
+  margin-top: 50px;
+}
 </style>
 </head>
 
 <body>
+
 <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -23,157 +51,175 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Enlogic</a>
+      <!-- 
+      <a class="navbar-brand" href="#">Bootstrap Jquery Plugin</a>
+      -->
     </div>
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
-        <li class="dropdown active">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Home <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Dashboard</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Input Phases</a></li>
-            <li class="divider"></li>
-            <li><a href="#">External Sensors</a></li>
-          </ul>
-        </li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <!-- 
-            <li class="dropdown-header">Account Settings</li>
-            <li class="divider"></li>
-            -->
-            <li id="changepwd"><a href="#">Change Password</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Change IP Address</a></li>
-          </ul>
-        </li>
+        <li class="active"><a href="#home">Home</a></li>
+        <li><a href="#dialog">Dialog</a></li>
+        <li><a href="#datagrid">Datagrid</a></li>
       </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">admin <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li class="dropdown-header">Action</li>
-            <li class="divider"></li>
-            <li><a href="#">Logout</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
+    </div><!-- /.nav-collapse -->
+  </div><!-- /.container -->
+</div><!-- /.navbar -->
 
-<div class="container">
 
-  <div class="row row-offcanvas row-offcanvas-right">
-<!--     <div class="col-xs-12 col-sm-3" id="sidebar" role="navigation">
-      <div class="sidebar-nav">
-        <ul class="nav">
-          <li class="active">
-            <a href="#">Dashboard</a>
-          </li>
-          <li>
-            <a href="#">Input Phases</a>
-          </li>
-          <li>
-            <a href="#">External Sensors</a>
-          </li>
-        </ul>
+<section id="home">
+  <!-- Carousel
+  ================================================== -->
+  <div id="myCarousel" class="carousel slide">
+    <!-- Indicators -->
+    <!-- <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol> -->
+    <div class="carousel-inner">
+      <div class="item active">
+        <div class="container">
+          <div class="carousel-caption">
+            <br>
+            <h1>Bootstrap Jquery Plugin</h1>
+            <br>
+            <h2>
+              A simple light weight jquery plugin library to make working with Bootstrap css.
+            </h2>
+            <br><br>
+            <p>
+              <a class="btn btn-large btn-primary" href="#"
+                style="font-size:18px"
+                >Download</a>
+            </p>
+          </div>
+        </div>
       </div>
-    </div> -->
-    <div class="col-xs-12 col-sm-12">
-      <!-- 
-      <p class="pull-right visible-xs">
-        <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
-      </p>
+      <!--
+      <div class="item">
+        <div class="container">
+          <div class="carousel-caption">
+            <h1>Another example headline.</h1>
+            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+            <p><a class="btn btn-large btn-primary" href="#">Learn more</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="container">
+          <div class="carousel-caption">
+            <h1>One more for good measure.</h1>
+            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+            <p><a class="btn btn-large btn-primary" href="#">Browse gallery</a></p>
+          </div>
+        </div>
+      </div>
       -->
-      <div class="jumbotron">
-        <h1>ENLOGIC</h1>
-        <p>This is an example to show the potential of an offcanvas layout pattern in Bootstrap. Try some responsive-range viewport sizes to see it in action.</p>
-      </div>
-      <div class="row">
-        <div class="col-6 col-sm-6 col-lg-4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
-        </div><!--/span-->
-        <div class="col-6 col-sm-6 col-lg-4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
-        </div><!--/span-->
-        <div class="col-6 col-sm-6 col-lg-4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
-        </div><!--/span-->
-        <div class="col-6 col-sm-6 col-lg-4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
-        </div><!--/span-->
-        <div class="col-6 col-sm-6 col-lg-4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
-        </div><!--/span-->
-        <div class="col-6 col-sm-6 col-lg-4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
-        </div><!--/span-->
-      </div><!--/row-->
+    </div>
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+      <!-- <span class="glyphicon glyphicon-chevron-left"></span> -->
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+      <!-- <span class="glyphicon glyphicon-chevron-right"></span> -->
+    </a>
+  </div><!-- /.carousel -->
+  <!-- Source codes -->
+  <div class="github-links">
+    <div class="container">
+      <ul>
+        <li>
+          <iframe width="95px" scrolling="0" height="20px" frameborder="0" allowtransparency="true" src="http://ghbtns.com/github-btn.html?user=newghost&repo=bootstrap-jquery-plugin&type=fork&count=true"></iframe>
+        </li>
+        <li>
+          <iframe width="95px" scrolling="0" height="20px" frameborder="0" allowtransparency="true" src="http://ghbtns.com/github-btn.html?user=newghost&repo=bootstrap-jquery-plugin&type=watch&count=true"></iframe>
+        </li>
+        <li>
+          <iframe width="165px" scrolling="0" height="20px" frameborder="0" allowtransparency="true" src="http://ghbtns.com/github-btn.html?user=newghost&type=follow&count=true"></iframe>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="dialog">
+
+</section>
+
+<section id="datagrid">
+<div class="container marketing">
+  <!-- Three columns of text below the carousel -->
+  <div class="row">
+    <div class="col-lg-4">
+      <img class="img-circle" src="data:image/png;base64," data-src="holder.js/140x140" alt="Generic placeholder image">
+      <h2>Heading</h2>
+      <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
+      <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
+    </div><!-- /.col-lg-4 -->
+    <div class="col-lg-4">
+      <img class="img-circle" src="data:image/png;base64," data-src="holder.js/140x140" alt="Generic placeholder image">
+      <h2>Heading</h2>
+      <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
+      <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
+    </div><!-- /.col-lg-4 -->
+    <div class="col-lg-4">
+      <img class="img-circle" src="data:image/png;base64," data-src="holder.js/140x140" alt="Generic placeholder image">
+      <h2>Heading</h2>
+      <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+      <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
+    </div><!-- /.col-lg-4 -->
+  </div><!-- /.row -->
+
+
+  <!-- START THE FEATURETTES -->
+
+  <hr class="featurette-divider">
+
+  <div class="row featurette">
+    <div class="col-md-7">
+      <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
+      <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+    </div>
+    <div class="col-md-5">
+      <img class="featurette-image img-responsive" src="data:image/png;base64," data-src="holder.js/500x500/auto" alt="Generic placeholder image">
     </div>
   </div>
 
-  <hr>
+  <hr class="featurette-divider">
 
+  <div class="row featurette">
+    <div class="col-md-5">
+      <img class="featurette-image img-responsive" src="data:image/png;base64," data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+    </div>
+    <div class="col-md-7">
+      <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
+      <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+    </div>
+  </div>
+
+  <hr class="featurette-divider">
+
+  <div class="row featurette">
+    <div class="col-md-7">
+      <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
+      <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+    </div>
+    <div class="col-md-5">
+      <img class="featurette-image img-responsive" src="data:image/png;base64," data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+    </div>
+  </div>
+
+  <hr class="featurette-divider">
+
+  <!-- /END THE FEATURETTES -->
+
+
+  <!-- FOOTER -->
   <footer>
-    <p>&copy; <a href="http://enlogic.com" target="_blank">Enlogic</a></p>
+    <p class="pull-right"><a href="#">Back to top</a></p>
+    <p>&copy; 2013 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
   </footer>
-
 </div>
-
-<!-- Template -->
-<div class="hide">
-
-<div id="loginwrap">
-  <form id="loginform" role="form">
-    <div class="form-group">
-      <label for="username">Username</label>
-      <input type="username" class="form-control"
-       id="username">
-    </div>
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input type="password" class="form-control"
-      id="password">
-    </div>
-  </form>
-</div>
-
-<div id="passwordwrap">
-  <form id="passwordform" role="form">
-    <div class="form-group">
-      <label for="txtOldpassword">Old Password</label>
-      <input type="password" class="form-control"
-       id="txtOldpassword">
-    </div>
-    <div class="form-group">
-      <label for="txtPassword">Password</label>
-      <input type="password" class="form-control"
-      id="txtPassword">
-    </div>
-    <div class="form-group">
-      <label for="password2">Password</label>
-      <input type="password" class="form-control"
-      id="password2">
-    </div>
-  </form>
-</div>
-
-</div>
+</section>
 
 <script src="js/jquery-1.10.2.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
@@ -181,6 +227,26 @@
 <script src="js/jquery.dialog.js"></script>
 <script>
 
+(function() {
+  var $body   = $(document.body);
+  $body.scrollspy({
+      target: '.navbar'
+    //, offset: navHeight
+  });
+
+})();
+</script>
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-43238430-2', 'ourjs.com');
+  ga('send', 'pageview');
 </script>
 </body>
 </html>
