@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bootstrap - jQuery - Plugin</title>
 <link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/prettify.css" rel="stylesheet">
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/prettify.js"></script>
+<script src="js/jquery.bootstrap.js"></script>
 <!--[if lt IE 9]>
   <script src="js/html5shiv.js"></script>
   <script src="js/respond.min.js"></script>
@@ -37,6 +42,10 @@
 
 #home{
   margin-top: 50px;
+}
+
+section{
+  margin-bottom: 100px;
 }
 </style>
 </head>
@@ -81,16 +90,16 @@
         <div class="container">
           <div class="carousel-caption">
             <br>
-            <h1>Bootstrap jQuery Plugin</h1>
+            <h1 style="font-size: 52px;">Bootstrap jQuery Plugin</h1>
             <br>
             <h2>
               A simple light weight jquery plugin library to make working with Bootstrap css.
             </h2>
             <br><br>
             <p>
-              <a class="btn btn-large btn-primary" href="#"
+              <a class="btn btn-large btn-primary" href="js/jquery.bootstrap.min.js"
                 style="font-size:18px"
-                >Download</a>
+                >Download jquery.bootstrap.min.js</a>
             </p>
           </div>
         </div>
@@ -143,7 +152,75 @@
 
 <section id="dialog">
 <div class="container">
+  <h1>jquery.dialog.js</h1>
+  <hr>
+  <div class="row">
 
+    <div class="col-lg-4">
+      <h3>This is login form</h3>
+      <hr>
+      <div id="loginwrap">
+        <form id="loginform" role="form">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="username" class="form-control"
+             id="username">
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control"
+            id="password">
+          </div>
+        </form>
+      </div>
+    </div>
+
+<div class="col-lg-4">
+  <h3>Open dialog</h3>
+  <hr>
+  <pre class="prettyprint linenums">
+  $("#loginwrap").dialog({
+      title:    "Login"
+    , buttons: [
+        {
+            text: "Login"
+          , classed: "btn-primary"
+          , click: function() {
+              $(this).dialog("destory");
+            }
+        }
+      ]
+  });
+  </pre>
+
+  <p><a id="btn_dialog_open" class="btn btn-default">Run »</a></p>
+
+  <script>
+  $("#btn_dialog_open").click(function() {
+    $("#loginwrap").dialog({
+        title:    "Login"
+      , buttons: [
+          {
+              text: "Login"
+            , classed: "btn-primary"
+            , click: function() {
+                console.log($(this));
+                $(this).dialog("destory");
+              }
+          }
+        ]
+    });
+  });
+  </script>
+</div>
+
+    <div class="col-lg-4">
+      <img class="img-circle" src="data:image/png;base64," data-src="holder.js/140x140" alt="Generic placeholder image">
+      <h2>Heading</h2>
+      <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+      <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
+    </div><!-- /.col-lg-4 -->
+  </div><!-- /.row -->
 </div>
 </section>
 
@@ -223,31 +300,24 @@
 </div>
 </section>
 
-<script src="js/jquery-1.10.2.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.bootstrap.js"></script>
 <script>
-
 (function() {
-  var $body   = $(document.body);
-  $body.scrollspy({
-      target: '.navbar'
-    //, offset: navHeight
-  });
+  prettyPrint();
 
+  var $body   = $(document.body);
+  $body.scrollspy({target: '.navbar'});
 })();
 </script>
 
 
-
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-43238430-2', 'ourjs.com');
-  ga('send', 'pageview');
+ga('create', 'UA-43238430-2', 'ourjs.com');
+ga('send', 'pageview');
 </script>
 </body>
 </html>
