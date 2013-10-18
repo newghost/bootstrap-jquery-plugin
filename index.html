@@ -99,7 +99,7 @@ section{
             <p>
               <a class="btn btn-large btn-primary" href="js/jquery.bootstrap.min.js"
                 style="font-size:18px"
-                >Download jquery.bootstrap.min.js</a>
+                >Download jquery.bootstrap.min.js (beta)</a>
             </p>
           </div>
         </div>
@@ -154,72 +154,151 @@ section{
 <div class="container">
   <h1>jquery.dialog.js</h1>
   <hr>
-  <div class="row">
 
+  <p>jquery dialog plugin based on bootstrap css</p>
+  <h4>DEMO: This is login form</h4>
+  <hr>
+  <div class="hide">
+    <div id="loginwrap">
+      <form id="loginform" role="form">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="username" class="form-control"
+           id="username">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control"
+          id="password">
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="row">
     <div class="col-lg-4">
-      <h3>This is login form</h3>
+      <h3>create</h3>
       <hr>
-      <div id="loginwrap">
-        <form id="loginform" role="form">
-          <div class="form-group">
-            <label for="username">Username</label>
-            <input type="username" class="form-control"
-             id="username">
-          </div>
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control"
-            id="password">
-          </div>
-        </form>
-      </div>
+      <p>Create a dialog</p>
+
+<pre class="prettyprint linenums">
+$("#loginwrap").dialog({title:"Login"});
+</pre>
+
+      <p><a id="btn_dialog_demo1" class="btn btn-default">Run »</a></p>
+
+      <script>
+      $("#btn_dialog_demo1").click(function() {
+        $("#loginwrap").dialog({ title:    "Login" });
+      });
+      </script>
+
+      <h3>open</h3>
+      <hr>
+      <p>Open a dialog</p>
+
+<pre class="prettyprint linenums">
+$("#loginwrap").dialog("open");
+</pre>
+
+      <p><a id="btn_dialog_demo1_1" class="btn btn-default">Run »</a></p>
+
+      <script>
+      $("#btn_dialog_demo1_1").click(function() {
+        $("#loginwrap").dialog("open");
+      });
+      </script>
+
     </div>
 
-<div class="col-lg-4">
-  <h3>Open dialog</h3>
-  <hr>
-  <pre class="prettyprint linenums">
-  $("#loginwrap").dialog({
-      title:    "Login"
-    , buttons: [
-        {
-            text: "Login"
-          , classed: "btn-primary"
-          , click: function() {
-              $(this).dialog("destory");
-            }
-        }
-      ]
-  });
-  </pre>
+    <div class="col-lg-4">
+      <h3>destroy</h3>
+      <hr>
+      <p>Remove the dialog elements from DOM, after destroy <b>you cannot see</b> the form again.</p>
 
-  <p><a id="btn_dialog_open" class="btn btn-default">Run »</a></p>
+      <pre class="prettyprint linenums">$("#loginwrap").dialog("destroy");</pre>
 
-  <script>
-  $("#btn_dialog_open").click(function() {
-    $("#loginwrap").dialog({
-        title:    "Login"
-      , buttons: [
-          {
-              text: "Login"
-            , classed: "btn-primary"
-            , click: function() {
-                console.log($(this));
-                $(this).dialog("destory");
-              }
-          }
-        ]
-    });
-  });
-  </script>
-</div>
+    </div>
+
 
     <div class="col-lg-4">
-      <img class="img-circle" src="data:image/png;base64," data-src="holder.js/140x140" alt="Generic placeholder image">
-      <h2>Heading</h2>
-      <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-      <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
-    </div><!-- /.col-lg-4 -->
+      <h3>buttons</h3>
+      <hr>
+      <p>Open dialog with buttons</p>
+
+<pre class="prettyprint linenums">
+$("#loginwrap").dialog({
+    title:    "Login"
+  , buttons: [
+      {
+          text: "Close"
+        , classed: "btn-primary"
+        , click: function() {
+            $(this).dialog("close");
+          }
+      },
+      {
+          text: "Login"
+        , classed: "btn-success"
+        , click: function() {
+            //your login handler
+
+            $(this).dialog("close");
+          }
+      },
+      {
+          text: "Destroy"
+        , classed: "btn-error"
+        , click: function() {
+            //your login handler
+
+            $(this).dialog("destroy");
+          }
+      }
+    ]
+});
+</pre>
+
+      <p><a id="btn_dialog_demo2" class="btn btn-default">Run »</a></p>
+
+      <script>
+      $("#btn_dialog_demo2").click(function() {
+
+        $("#loginwrap").dialog({
+            title:    "Login"
+          , buttons: [
+              {
+                  text: "Close"
+                , classed: "btn-primary"
+                , click: function() {
+                    $(this).dialog("close");
+                  }
+              },
+              {
+                  text: "Login"
+                , classed: "btn-success"
+                , click: function() {
+                    //your login handler
+
+                    $(this).dialog("close");
+                  }
+              },
+              {
+                  text: "Destroy"
+                , classed: "btn-warning"
+                , click: function() {
+                    //your login handler
+
+                    $(this).dialog("destroy");
+                  }
+              }
+            ]
+        });
+
+      });
+      </script>
+    </div>
+
   </div><!-- /.row -->
 </div>
 </section>

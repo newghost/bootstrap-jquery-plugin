@@ -2,14 +2,6 @@
 Description: $.fn.dialog
 Author: Kris Zhang
 */
-
-/*
-
-
-<div class="modal-backdrop fade in"></div>
-
-*/
-
 (function($) {
 
   $.fn.dialog = function(options) {
@@ -54,13 +46,15 @@ Author: Kris Zhang
       $msgbox.find(".modal-body").append($this);
       
       //bind event & show
-      $(".modal-header .close").click(destroy);
-      show();
+      $(".modal-header .close").click(close);
     };
 
     var createButton = function() {
       var buttons = options.buttons || {}
         , $btnrow = $msgbox.find(".modal-footer");
+
+      //clear old buttons
+      $btnrow.html('');
 
       for (var button in buttons) {
         var btnObj  = buttons[button]
@@ -81,13 +75,17 @@ Author: Kris Zhang
         }
 
         //<button data-bb-handler="danger" type="button" class="btn btn-danger">Danger!</button>
-        var $button = $('<button type="button" class="btn {1}">{0}</button>'.format(text, classed));
+        $button = $('<button type="button" class="btn {1}">{0}</button>'.format(text, classed));
 
         id && $button.attr("id", id);
-        click && $button.click(function() {
-          console.log("click", click);
-          click.call(self);
-        });
+        if (click) {
+          (function(click) {
+            $button.click(function() {
+              console.log("click", click);
+              click.call(self);
+            });
+          })(click);
+        }
 
         $btnrow.append($button);
       }
@@ -98,7 +96,7 @@ Author: Kris Zhang
       $body.addClass("modal-open");
     };
 
-    var destroy = function() {
+    var close = function() {
       $msgbox.hide();
       $body.removeClass("modal-open");
     };
@@ -106,16 +104,23 @@ Author: Kris Zhang
     if (options.constructor == Object) {
       if ($msgbox.size() < 1) {
         create();
-        createButton();
       }
-
-      $msgbox.show();
-      $(".modal-title", $msgbox).html(options.title || "");      
+      createButton();
+      $(".modal-title", $msgbox).html(options.title || "");
+      show();
     }
 
     if (options == "destroy") {
-      console.log("destroy, here", $this);
-      destroy();
+      close();
+      $msgbox.remove();
+    }
+
+    if (options == "close") {
+      close();
+    }
+
+    if (options == "open") {
+      show();
     }
 
     return $this;
