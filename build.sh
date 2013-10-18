@@ -5,7 +5,7 @@ set -x
 
 #combine source files into one
 cd src
-cat copyright.js string.format.js jquery.dialog.js > ../js/jquery.bootstrap.js
+cat copyright.js string.format.js jquery.dialog.js jquery.datagrid.js > ../js/jquery.bootstrap.js
 cd ..
 
 

@@ -157,6 +157,24 @@ section{
 
   <p>jquery dialog plugin based on bootstrap css</p>
   <h4>DEMO: This is login form</h4>
+
+  <pre class="prettyprint linenums">
+      &lt;div id="loginwrap"&gt;
+      &lt;form id="loginform" role="form"&gt;
+        &lt;div class="form-group"&gt;
+          &lt;label for="username"&gt;Username&lt;/label&gt;
+          &lt;input type="username" class="form-control"
+           id="username"&gt;
+        &lt;/div&gt;
+        &lt;div class="form-group"&gt;
+          &lt;label for="password"&gt;Password&lt;/label&gt;
+          &lt;input type="password" class="form-control"
+          id="password"&gt;
+        &lt;/div&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+  </pre>
+
   <hr>
   <div class="hide">
     <div id="loginwrap">
@@ -176,14 +194,14 @@ section{
   </div>
 
   <div class="row">
-    <div class="col-lg-4">
+    <div class="col-lg-6">
       <h3>create</h3>
       <hr>
       <p>Create a dialog</p>
 
-<pre class="prettyprint linenums">
-$("#loginwrap").dialog({title:"Login"});
-</pre>
+      <pre class="prettyprint linenums">
+      $("#loginwrap").dialog({title:"Login"});
+      </pre>
 
       <p><a id="btn_dialog_demo1" class="btn btn-default">Run »</a></p>
 
@@ -197,9 +215,9 @@ $("#loginwrap").dialog({title:"Login"});
       <hr>
       <p>Open a dialog</p>
 
-<pre class="prettyprint linenums">
-$("#loginwrap").dialog("open");
-</pre>
+      <pre class="prettyprint linenums">
+      $("#loginwrap").dialog("open");
+      </pre>
 
       <p><a id="btn_dialog_demo1_1" class="btn btn-default">Run »</a></p>
 
@@ -209,55 +227,54 @@ $("#loginwrap").dialog("open");
       });
       </script>
 
-    </div>
-
-    <div class="col-lg-4">
       <h3>destroy</h3>
       <hr>
       <p>Remove the dialog elements from DOM, after destroy <b>you cannot see</b> the form again.</p>
 
-      <pre class="prettyprint linenums">$("#loginwrap").dialog("destroy");</pre>
+      <pre class="prettyprint linenums">
+      $("#loginwrap").dialog("destroy");
+      </pre>
 
     </div>
 
 
-    <div class="col-lg-4">
+    <div class="col-lg-6">
       <h3>buttons</h3>
       <hr>
       <p>Open dialog with buttons</p>
 
-<pre class="prettyprint linenums">
-$("#loginwrap").dialog({
-    title:    "Login"
-  , buttons: [
-      {
-          text: "Close"
-        , classed: "btn-primary"
-        , click: function() {
-            $(this).dialog("close");
-          }
-      },
-      {
-          text: "Login"
-        , classed: "btn-success"
-        , click: function() {
-            //your login handler
+      <pre class="prettyprint linenums">
+      $("#loginwrap").dialog({
+          title:    "Login"
+        , buttons: [
+            {
+                text: "Close"
+              , classed: "btn-primary"
+              , click: function() {
+                  $(this).dialog("close");
+                }
+            },
+            {
+                text: "Login"
+              , classed: "btn-success"
+              , click: function() {
+                  //your login handler
 
-            $(this).dialog("close");
-          }
-      },
-      {
-          text: "Destroy"
-        , classed: "btn-error"
-        , click: function() {
-            //your login handler
+                  $(this).dialog("close");
+                }
+            },
+            {
+                text: "Destroy"
+              , classed: "btn-error"
+              , click: function() {
+                  //your login handler
 
-            $(this).dialog("destroy");
-          }
-      }
-    ]
-});
-</pre>
+                  $(this).dialog("destroy");
+                }
+            }
+          ]
+      });
+      </pre>
 
       <p><a id="btn_dialog_demo2" class="btn btn-default">Run »</a></p>
 
@@ -298,93 +315,110 @@ $("#loginwrap").dialog({
       });
       </script>
     </div>
-
-  </div><!-- /.row -->
+  </div>
 </div>
 </section>
 
 <section id="datagrid">
 <div class="container marketing">
+  <h1>jquery.datagrid.js</h1>
+  <hr>
+
+  <p>jquery datagrid plugin based on bootstrap css</p>
+  <h4>DEMO: This is table</h4>
+  <pre class="prettyprint linenums">
+    &lt;table id="tablewrap1" class="table table-striped"&gt;&lt;/table&gt;
+  </pre>
+
   <!-- Three columns of text below the carousel -->
   <div class="row">
-    <div class="col-lg-4">
-      <img class="img-circle" src="data:image/png;base64," data-src="holder.js/140x140" alt="Generic placeholder image">
-      <h2>Heading</h2>
-      <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
-      <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
-    </div><!-- /.col-lg-4 -->
-    <div class="col-lg-4">
-      <img class="img-circle" src="data:image/png;base64," data-src="holder.js/140x140" alt="Generic placeholder image">
-      <h2>Heading</h2>
-      <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
-      <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
-    </div><!-- /.col-lg-4 -->
-    <div class="col-lg-4">
-      <img class="img-circle" src="data:image/png;base64," data-src="holder.js/140x140" alt="Generic placeholder image">
-      <h2>Heading</h2>
-      <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-      <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
-    </div><!-- /.col-lg-4 -->
-  </div><!-- /.row -->
+    <div class="col-lg-6">
+      <h2>Demo</h2>
+      <p>load data from json object</p>
+      <table id="tablewrap1" class="table table-striped"></table>
+      <script>
+      var $table    = $('#tablewrap1');
 
+      var rows =[
+        {"name":"现金","type":"可用资产","sum":143400},
+        {"name":"招商银行","type":"可用资产","sum":3426919},
+        {"name":"工商银行","type":"可用资产","sum":3343312},
+        {"name":"建设银行","type":"可用资产","sum":120330},
+        {"name":"白银市值","type":"流动资产","sum":319492},
+        {"name":"申万余额","type":"流动资产","sum":321338},
+        {"name":"邮政银行","type":"固定资产","sum":342219},
+        {"name":"预付卡","type":"固定资产","sum":231000},
+        {"name":"公积金","type":"固定资产","sum":259451},
+        {"name":"公积金补充","type":"固定资产","sum":449563}
+      ];
 
-  <!-- START THE FEATURETTES -->
+      $table.datagrid({
+        columns:[[
+            {title: "Name", field: "name"}
+          , {title: "Type", field: "type"}
+          , {title: "Number", field: "sum"}
+        ]]
+      }).datagrid("loadData", {rows: rows});
 
-  <hr class="featurette-divider">
+      $("#tablewrap1").append($table);
+      </script>
 
-  <div class="row featurette">
-    <div class="col-md-7">
-      <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
-      <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
     </div>
-    <div class="col-md-5">
-      <img class="featurette-image img-responsive" src="data:image/png;base64," data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+    <div class="col-lg-6">
+      <h2>codes</h2>
+      <hr>
+      <pre class="prettyprint linenums">
+      var $table    = $('#tablewrap1');
+
+      var rows =[
+        {"name":"现金","type":"可用资产","sum":143400},
+        {"name":"招商银行","type":"可用资产","sum":3426919},
+        {"name":"工商银行","type":"可用资产","sum":3343312},
+        {"name":"建设银行","type":"可用资产","sum":120330},
+        {"name":"白银市值","type":"流动资产","sum":319492},
+        {"name":"申万余额","type":"流动资产","sum":321338},
+        {"name":"邮政银行","type":"固定资产","sum":342219},
+        {"name":"预付卡","type":"固定资产","sum":231000},
+        {"name":"公积金","type":"固定资产","sum":259451},
+        {"name":"公积金补充","type":"固定资产","sum":449563}
+      ];
+
+      $table.datagrid({
+        columns:[[
+            {title: "Name", field: "name"}
+          , {title: "Type", field: "type"}
+          , {title: "Number", field: "sum"}
+        ]]
+      }).datagrid("loadData", {rows: rows});
+
+      $("#tablewrap1").append($table);
+      </pre>
     </div>
   </div>
+</div>
+</section>
 
-  <hr class="featurette-divider">
+<section id="tree">
+<div class="container">
+  <h1>More comming soon...</h1>
+  <hr>
+</div>
+</section>
 
-  <div class="row featurette">
-    <div class="col-md-5">
-      <img class="featurette-image img-responsive" src="data:image/png;base64," data-src="holder.js/500x500/auto" alt="Generic placeholder image">
-    </div>
-    <div class="col-md-7">
-      <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
-      <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-    </div>
-  </div>
-
-  <hr class="featurette-divider">
-
-  <div class="row featurette">
-    <div class="col-md-7">
-      <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
-      <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-    </div>
-    <div class="col-md-5">
-      <img class="featurette-image img-responsive" src="data:image/png;base64," data-src="holder.js/500x500/auto" alt="Generic placeholder image">
-    </div>
-  </div>
-
-  <hr class="featurette-divider">
-
-  <!-- /END THE FEATURETTES -->
-
-
+<div class="container">
   <!-- FOOTER -->
   <footer>
     <p class="pull-right"><a href="#">Back to top</a></p>
     <p>&copy; 2013 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
   </footer>
 </div>
-</section>
 
 <script>
 (function() {
   prettyPrint();
 
   var $body   = $(document.body);
-  $body.scrollspy({target: '.navbar'});
+  $body.scrollspy({target: '.navbar', offset: 90});
 })();
 </script>
 
