@@ -1,6 +1,7 @@
 /**
-* jquery.bootstrap.js by @https://github.com/newghost
-* http://www.apache.org/licenses/LICENSE-2.0
+* jquery.bootstrap.js
+Copyright (c) Kris Zhang <kris.newghost@gmail.com>
+License: MIT 
 */
 /* Extend string method */
 
