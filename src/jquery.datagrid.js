@@ -1,8 +1,7 @@
 /*
-Description: $.fn.combobox
 Author: Kris Zhang
 require: 
-  string.js
+  string.format.js
   jquery.dialog.js
 */
 
@@ -35,11 +34,13 @@ require:
         //There is more than one tips? popup message.
         $("#{0} ul li".format(id)).size() > 1
           &&  $("#" + id).dialog({
-                title: "请选择一个值",
+                title: "Please select an item",
                 buttons: [
-                  { "关闭": function() {  
-                    $(this).dialog("destroy")
-                  }}
+                  {
+                    "Close": function() {  
+                      $(this).dialog("close")
+                    }
+                  }
                 ]
               });
       });

@@ -1,6 +1,8 @@
 /*
 Description: $.fn.dialog
 Author: Kris Zhang
+require: 
+  string.format.js
 */
 (function($) {
 
