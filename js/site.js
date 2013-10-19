@@ -7,6 +7,15 @@ Demo codes for https://github.com/newghost/bootstrap-jquery-plugin
   $body.scrollspy({target: '.navbar', offset: 90});
 })();
 
+var run = function(selector) {
+  //console.log($(selector).text(), $(selector + "Result"));
+
+  var result = eval($(selector).text())
+    , $result = $(selector + "Result")
+    ;
+
+  $result.size() && $result.html(JSON.stringify(result));
+};
 
 //dialog
 (function() {
@@ -78,8 +87,7 @@ Demo codes for https://github.com/newghost/bootstrap-jquery-plugin
           {title: "Name",   field: "name"}
         , {title: "Type",   field: "type"}
         , {title: "Number", field: "sum"}
-      ]],
-      singleSelect: false
+      ]]
   }).datagrid("loadData", {rows: rows});
 
   /*
@@ -94,28 +102,12 @@ Demo codes for https://github.com/newghost/bootstrap-jquery-plugin
       , {title: "Number", field: "sum"}
     ]]
     , edit: true
+    , singleSelect: true //false allow multi select
     , selectChange: function(selected, rowIndex, rowData, $row) {
+        //allow multi-select
         //console.log(selected, rowIndex, rowData, $row);
       }
   }).datagrid("loadData", {rows: rows});
 
-
-    // , buttons: [
-    //     {
-    //         text: "Insert"
-    //       , click: function() {
-    //         $(this).datagrid("addRow", { name: "234234" });
-    //       }
-    //       , classed: "btn-success"
-    //     }
-    //   , {
-    //         text: "Delete"
-    //       , click: function() {
-    //         var selRows = $(this).datagrid("getSelections");
-    //         $(this).datagrid("deleteRow", selRows);
-    //       }
-    //       , classed: "btn-danger"
-    //     }
-    // ]
 
 })();

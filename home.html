@@ -92,11 +92,11 @@ section{
             <h2>
               A simple light weight jquery plugin library to make working with Bootstrap css.
             </h2>
-            <br><br>
+            <br>
             <p>
-              <a class="btn btn-large btn-primary" href="js/jquery.bootstrap.min.js"
+              <a class="btn btn-large btn-primary" href="js/jquery.bootstrap.js"
                 style="font-size:18px"
-                >Download jquery.bootstrap.min.js (beta)</a>
+                >Download jquery.bootstrap.js (Debug)</a>
             </p>
           </div>
         </div>
@@ -316,10 +316,7 @@ section{
             {title: "Name", field: "name"}
           , {title: "Type", field: "type"}
           , {title: "Number", field: "sum"}
-        ]],
-        onSelect: function() {
-
-        }
+        ]]
       }).datagrid("loadData", {rows: rows});
       </pre>
     </div>
@@ -335,22 +332,73 @@ section{
         &lt;table id="tablewrap2" class="table table-hover"&gt;&lt;/table&gt;
       </pre>
       <table id="tablewrap2" class="table table-hover"></table>
-    </div>
-
-    <div class="col-lg-6">
       <p>codes</p>
       <pre class="prettyprint linenums">
       var $editTable = $('#tablewrap2');
 
       $editTable.datagrid({
         columns:[[
-            {title: "Name",   field: "name", readonly: true}
-          , {title: "Type",   field: "type"}
+            {title: "Name", field: "name", readonly: true}
+          , {title: "Type", field: "type"}
           , {title: "Number", field: "sum"}
         ]]
         , edit: true
+        , singleSelect: true //false allow multi select
+        , selectChange: function(selected, rowIndex, rowData, $row) {
+            //allow multi-select
+            //console.log(selected, rowIndex, rowData, $row);
+          }
       }).datagrid("loadData", {rows: rows});
       </pre>
+    </div>
+
+    <div class="col-lg-6">
+      <p>
+        updateRow
+        <a class="btn btn-success" onclick="run('#updateRow')">Run</a>
+      </p>
+      <pre class="prettyprint linenums" id="updateRow">$('#tablewrap2').datagrid("updateRow", {index: 0, row: {name: "Good luck", sum: new Date() }});</pre>
+
+      <p>
+        unselectRow(index)
+        <a class="btn btn-success" onclick="run('#unselectRow_all')">Run</a>
+      </p>
+      <pre class="prettyprint linenums" id="unselectRow_all">$('#tablewrap2').datagrid("unselectRow", 1);</pre>
+
+      <p>
+        unselectRow
+        <a class="btn btn-success" onclick="run('#unselectRow')">Run</a>
+      </p>
+      <pre class="prettyprint linenums" id="unselectRow">$('#tablewrap2').datagrid("unselectRow");</pre>
+
+      <p>
+        getSelections
+        <a class="btn btn-success" onclick="run('#getSelections')">Run</a>
+      </p>
+      <pre class="prettyprint linenums" id="getSelections">$('#tablewrap2').datagrid("getSelections");</pre>
+      <pre id="getSelectionsResult"></pre>
+
+      <p>
+        getData
+        <a class="btn btn-success" onclick="run('#getData')">Run</a>
+      </p>
+      <pre class="prettyprint linenums" id="getData">$('#tablewrap2').datagrid("getData");</pre>
+      <pre id="getDataResult"></pre>
+
+      <p>
+        getConfig
+        <a class="btn btn-success" onclick="run('#getConfig')">Run</a>
+      </p>
+      <pre class="prettyprint linenums" id="getConfig">$('#tablewrap2').datagrid("getConfig");</pre>
+      <pre id="getConfigResult"></pre>
+
+      <p>
+        getColumns
+        <a class="btn btn-success" onclick="run('#getColumns')">Run</a>
+      </p>
+      <pre class="prettyprint linenums" id="getColumns">$('#tablewrap2').datagrid("getColumns");</pre>
+      <pre id="getColumnsResult"></pre>
+
     </div>
   </div>
 

@@ -141,26 +141,34 @@ require:
       return $this.data("rows");
     }
 
-    if (method == "getColumnFields") {
-      return $this.data("columns");
+    if (method == "getConfig") {
+      return $this.data("config");
+    }
+
+    if (method == "getColumns") {
+      return $this.data("config").columns;
     }
 
     if (method == "unselectRow") {
-      $("tbody tr", $this).eq(options).removeClass(selectedClass);
+      typeof options != "undefined"
+        ? $("tbody tr", $this).eq(options).removeClass(selectedClass)
+        : $("tbody tr", $this).removeClass(selectedClass);
     }
 
     if (method == "updateRow") {
       var idx     = options.index
+        , conf    = $this.data("config")
+        , rows    = $this.data("rows")
         , row     = options.row
-        , columns = $this.data("columns")
-        , rows    = $this.data("rows");
+        , columns = conf.columns
+        ;
 
       if (rows) {
         row = $.extend(rows[idx], row);
         $this.data("rows", rows);
       }
 
-      var $row = $(getRow(columns, row));
+      var $row = $(getRow(columns, row, conf));
 
       $("tbody tr", $this).eq(idx)
         .after($row)
