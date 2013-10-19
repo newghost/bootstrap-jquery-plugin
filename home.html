@@ -278,23 +278,23 @@ section{
 <div class="container marketing">
   <h1>jquery.datagrid.js</h1>
   <hr>
-
   <p>jquery datagrid plugin based on bootstrap css</p>
-  <h4>DEMO: This is table</h4>
-  <pre class="prettyprint linenums">
-    &lt;table id="tablewrap1" class="table table-striped"&gt;&lt;/table&gt;
-  </pre>
+
 
   <!-- Three columns of text below the carousel -->
+  <h2>load</h2>
+  <hr>
+  <p>load data from json object</p>
   <div class="row">
     <div class="col-lg-6">
-      <h2>load</h2>
-      <p>load data from json object</p>
+      <p>html</p>
+      <pre class="prettyprint linenums">
+        &lt;table id="tablewrap1" class="table table-striped"&gt;&lt;/table&gt;
+      </pre>
       <table id="tablewrap1" class="table table-striped"></table>
     </div>
     <div class="col-lg-6">
-      <h2>codes</h2>
-      <hr>
+      <p>codes</p>
       <pre class="prettyprint linenums">
       var $table = $('#tablewrap1');
 
@@ -316,11 +316,44 @@ section{
             {title: "Name", field: "name"}
           , {title: "Type", field: "type"}
           , {title: "Number", field: "sum"}
-        ]]
+        ]],
+        onSelect: function() {
+
+        }
       }).datagrid("loadData", {rows: rows});
       </pre>
     </div>
   </div>
+
+  <h2>edit</h2>
+  <hr>
+  <p>edit json data</p>
+  <div class="row">
+    <div class="col-lg-6">
+      <p>html</p>
+      <pre class="prettyprint linenums">
+        &lt;table id="tablewrap2" class="table table-hover"&gt;&lt;/table&gt;
+      </pre>
+      <table id="tablewrap2" class="table table-hover"></table>
+    </div>
+
+    <div class="col-lg-6">
+      <p>codes</p>
+      <pre class="prettyprint linenums">
+      var $editTable = $('#tablewrap2');
+
+      $editTable.datagrid({
+        columns:[[
+            {title: "Name",   field: "name", readonly: true}
+          , {title: "Type",   field: "type"}
+          , {title: "Number", field: "sum"}
+        ]]
+        , edit: true
+      }).datagrid("loadData", {rows: rows});
+      </pre>
+    </div>
+  </div>
+
 </div>
 </section>
 
@@ -335,7 +368,11 @@ section{
   <!-- FOOTER -->
   <footer>
     <p class="pull-right"><a href="#">Back to top</a></p>
-    <p>&copy; 2013 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+    <p>
+      &copy;
+      <a href="https://github.com/newghost/bootstrap-jquery-plugin">
+      newghost@bootstrap-jquery-plugin</a>
+    </p>
   </footer>
 </div>
 

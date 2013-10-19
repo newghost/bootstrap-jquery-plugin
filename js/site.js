@@ -54,6 +54,10 @@ Demo codes for https://github.com/newghost/bootstrap-jquery-plugin
 
 //datagrid
 (function() {
+
+  /*
+  load
+  */
   var $table = $('#tablewrap1');
 
   var rows =[
@@ -70,11 +74,48 @@ Demo codes for https://github.com/newghost/bootstrap-jquery-plugin
   ];
 
   $table.datagrid({
+      columns:[[
+          {title: "Name",   field: "name"}
+        , {title: "Type",   field: "type"}
+        , {title: "Number", field: "sum"}
+      ]],
+      singleSelect: false
+  }).datagrid("loadData", {rows: rows});
+
+  /*
+  edit
+  */
+  var $editTable = $('#tablewrap2');
+
+  $editTable.datagrid({
     columns:[[
-        {title: "Name",   field: "name"}
-      , {title: "Type",   field: "type"}
+        {title: "Name", field: "name", readonly: true}
+      , {title: "Type", field: "type"}
       , {title: "Number", field: "sum"}
     ]]
+    , edit: true
+    , selectChange: function(selected, rowIndex, rowData, $row) {
+        //console.log(selected, rowIndex, rowData, $row);
+      }
   }).datagrid("loadData", {rows: rows});
+
+
+    // , buttons: [
+    //     {
+    //         text: "Insert"
+    //       , click: function() {
+    //         $(this).datagrid("addRow", { name: "234234" });
+    //       }
+    //       , classed: "btn-success"
+    //     }
+    //   , {
+    //         text: "Delete"
+    //       , click: function() {
+    //         var selRows = $(this).datagrid("getSelections");
+    //         $(this).datagrid("deleteRow", selRows);
+    //       }
+    //       , classed: "btn-danger"
+    //     }
+    // ]
 
 })();
