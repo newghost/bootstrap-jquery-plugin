@@ -152,7 +152,6 @@ require:
 Author: Kris Zhang
 require: 
   string.format.js
-  jquery.dialog.js
 */
 
 (function($) {
@@ -264,7 +263,7 @@ require:
     };
 
     //handle: $().datagrid({column: [[]]})
-    if (method.constructor == Object) {
+    if (method && method.constructor == Object) {
       var columns = method.columns;
  
       if (columns) {
@@ -338,7 +337,35 @@ require:
       return selRows;
     }
 
+    if (method == "insertRow") {
+      var idx   = options.index || 0
+        , row   = options.row
+        , conf  = $this.data("config")
+        , rows  = $this.data("rows") || []
+        ;
+
+      if (!conf || !row) return $this;
+
+      var $rows  = $("tbody tr", $this)
+        , $row   = $(getRow(conf.columns, row, conf))
+        , $tar   = $rows.eq(idx)
+        ;
+
+      bindRows($row);
+      $tar.size() ? $tar.before($row) : $("tbody", $this).append($row);
+      rows.splice(idx, 0, row);
+    }
+
+    if (method == "deleteRow") {
+      if (options > -1) {
+        $("tbody tr", $this).eq(options).remove();
+        var rows = $this.data("rows");
+        rows.splice(options, 1);
+      }
+    }
+
     return $this;
   };
+
 
 })(jQuery);

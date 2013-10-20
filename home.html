@@ -405,6 +405,18 @@ section > .container > h1 {
       <pre class="prettyprint linenums" id="getColumns">$('#tablewrap2').datagrid("getColumns");</pre>
       <pre id="getColumnsResult"></pre>
 
+      <p>
+        insertRow, index is optional (default is 0)
+        <a class="btn btn-success" onclick="run('#insertRow')">Run</a>
+      </p>
+      <pre class="prettyprint linenums" id="insertRow">$('#tablewrap2').datagrid("insertRow", {index: 3, row: {"name":"new" + (Math.random() * 100 | 0)}});</pre>
+
+      <p>
+        deleteRow
+        <a class="btn btn-success" onclick="run('#deleteRow')">Run</a>
+      </p>
+      <pre class="prettyprint linenums" id="deleteRow">$('#tablewrap2').datagrid("deleteRow", 0);</pre>
+
     </div>
   </div>
 
