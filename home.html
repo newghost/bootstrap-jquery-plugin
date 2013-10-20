@@ -71,6 +71,7 @@ section > .container > h1 {
         <li><a href="#string">String</a></li>
         <li><a href="#dialog">Dialog</a></li>
         <li><a href="#datagrid">Datagrid</a></li>
+        <li><a href="#tree">Tree</a></li>
       </ul>
     </div><!-- /.nav-collapse -->
   </div><!-- /.container -->
@@ -425,8 +426,50 @@ section > .container > h1 {
 
 <section id="tree">
 <div class="container">
-  <h1>More comming soon...</h1>
+  <h1>jquery.tree.js</h1>
   <hr>
+  <div class="row">
+    <div class="col-lg-6">
+      <p>html</p>
+      <pre class="prettyprint linenums">
+        &lt;ul id="treewrap"&gt;&lt;/ul&gt;
+      </pre>
+      <div id="treewrap"></div>
+    </div>
+    <div class="col-lg-6">
+      <p>codes</p>
+      <pre class="prettyprint linenums">
+      var $tree = $('#treewrap');
+
+      var treeDataArr = [
+          {
+              id:         "root"
+            , text:       "Root"
+            , attributes: {yourfield: "yourname"}
+            , children: [
+                  {
+                      id:         "tool"
+                    , text:       "Tool"
+                  }
+                , {
+                      id:         "user"
+                    , text:       "Uool"
+                  }
+              ]
+          }
+        , {
+              text:       "Guest"
+          }
+        , {
+              id:         "admin"
+            , text:       "Admin"
+          }
+      ];
+
+      $tree.tree({data: treeDataArr});
+      </pre>
+    </div>
+  </div>
 </div>
 </section>
 

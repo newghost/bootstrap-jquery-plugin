@@ -111,3 +111,44 @@ var run = function(selector) {
 
 
 })();
+
+
+//tree
+(function() {
+
+  var $tree = $('#treewrap');
+
+  var treeDataArr = [
+      {
+          id:         "root"
+        , text:       "Root"
+        , attributes: { yourfield: "your value" }
+        , children: [
+              {
+                  id:         "tool"
+                , text:       "Tool"
+              }
+            , {
+                  id:         "users"
+                , text:       "Users"
+                , children:   [
+                      {text: "Kris"}
+                    , {text: "Tom"}
+                    , {text: "Jerry"}
+                    , {text: "Dna"}
+                  ]
+              }
+          ]
+      }
+    , {
+          text:       "Guest"
+      }
+    , {
+          id:         "admin"
+        , text:       "Admin"
+      }
+  ];
+
+  $tree.tree({data: treeDataArr});
+
+})();
