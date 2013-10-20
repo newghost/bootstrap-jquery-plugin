@@ -118,7 +118,7 @@ var run = function(selector) {
 
   var $tree = $('#treewrap');
 
-  var treeDataArr = [
+  window.treeDataArr = [
       {
           id:         "root"
         , text:       "Root"
@@ -131,6 +131,7 @@ var run = function(selector) {
             , {
                   id:         "users"
                 , text:       "Users"
+                , state:      "close"
                 , children:   [
                       {text: "Kris"}
                     , {text: "Tom"}

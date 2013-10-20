@@ -434,9 +434,7 @@ section > .container > h1 {
       <pre class="prettyprint linenums">
         &lt;ul id="treewrap"&gt;&lt;/ul&gt;
       </pre>
-      <div id="treewrap"></div>
-    </div>
-    <div class="col-lg-6">
+      <ul id="treewrap"></ul>
       <p>codes</p>
       <pre class="prettyprint linenums">
       var $tree = $('#treewrap');
@@ -445,15 +443,22 @@ section > .container > h1 {
           {
               id:         "root"
             , text:       "Root"
-            , attributes: {yourfield: "yourname"}
+            , attributes: { yourfield: "your value" }
             , children: [
                   {
                       id:         "tool"
                     , text:       "Tool"
                   }
                 , {
-                      id:         "user"
-                    , text:       "Uool"
+                      id:         "users"
+                    , text:       "Users"
+                    , state:      "close"
+                    , children:   [
+                          {text: "Kris"}
+                        , {text: "Tom"}
+                        , {text: "Jerry"}
+                        , {text: "Dna"}
+                      ]
                   }
               ]
           }
@@ -469,6 +474,20 @@ section > .container > h1 {
       $tree.tree({data: treeDataArr});
       </pre>
     </div>
+    <div class="col-lg-6">
+      <p>
+        onClick
+        <a class="btn btn-success" onclick="run('#onClick')">Run</a>
+      </p>
+      <pre class="prettyprint linenums" id="onClick">
+      $('#treewrap').tree({
+          data:     treeDataArr
+        , onClick:  function(node, $link) {
+            console.log($(this), node, $link);
+          }
+      });
+      </pre>
+    </div>
   </div>
 </div>
 </section>
@@ -480,7 +499,7 @@ section > .container > h1 {
     <p>
       &copy;
       <a href="https://github.com/newghost/bootstrap-jquery-plugin">
-      newghost@bootstrap-jquery-plugin</a>
+      bootstrap-jquery-plugin@newghost</a>
     </p>
   </footer>
 </div>

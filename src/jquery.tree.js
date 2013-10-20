@@ -6,12 +6,17 @@ Dependence: string.js
 
   $.fn.tree = function(method, options) {
 
-    var $this = $(this),
-        pushFn  = Array.prototype.push;
+    var self        = this
+      , $this       = $(self)
+      , pushFn      = Array.prototype.push
+      , icon_node   = "glyphicon-file"
+      , icon_open   = "glyphicon-folder-open"
+      , icon_close  = "glyphicon-folder-close"
+      ;
 
-    var build = function(data, root) {
+    var build = function(data, root, parentState) {
       var tree = [];
-      tree.push('<ul {0}>'.format(root ? 'class="tree"' : ''));
+      !root && tree.push('<ul style="display:{0}">'.format(parentState == "close" ? "none" : "block"));
 
       data.forEach(function(node) {
         var children    = node.children
@@ -20,26 +25,39 @@ Dependence: string.js
           , attributes  = node.attributes;
 
         tree.push('<li>');
+        if (1) {
+          var type
+            = typeof children == "undefined"
+            ? icon_node
+            : ( state == "close" ?  icon_close : icon_open );
+          tree.push('<span class="glyphicon {0}"></span> '.format(type));
+        }
         tree.push('<a{1}{2}{3}>{0}</a>'.format(
             node.text
           , children   ? " class='tree-node'" : ""
           , id         ? " data-id='{0}'".format(id) : ""
           , attributes ? " data-attr='{0}'".format(JSON.stringify(attributes)) : ""
         ));
-        if (children) {
-          tree.push('<span class="icon-down {0}"></span>'.format(state == 'closed' ? 'hide' : ''));
-          pushFn.apply(tree, build(children));
-        }
+        children && pushFn.apply(tree, build(children, false, state));
         tree.push('</li>');
       });
-      tree.push('</ul>')
+      !root && tree.push('</ul>')
 
       return tree;
     };
 
-    var folder = function() {
-      $("span.icon-down", $this).click(function(e) {
-        $(this).toggleClass("hide");
+    var bind = function() {
+      $("span.glyphicon-folder-open, span.glyphicon-folder-close", $this).click(function(e) {
+        var $icon     = $(this)
+          , $children = $icon.closest("li").children("ul");
+
+        if ($icon.hasClass(icon_close)){
+          $icon.removeClass(icon_close).addClass(icon_open);
+          $children.show();
+        } else {
+          $icon.removeClass(icon_open).addClass(icon_close);
+          $children.hide();
+        }
       });
     };
 
@@ -48,26 +66,23 @@ Dependence: string.js
       if (data && (data.constructor == Array)) {
         var htmlArr = build(data, true);
         $this.html(htmlArr.join(''));
-        folder();
-        //console.log(htmlArr);
+        $this.data("config", method);
+        bind();
       }
 
       var clickHandler = method.onClick;
       if (clickHandler) {
         $("li>a", $this).click(function() {
-          var $this = $(this);
-              attrs = $this.attr("data-attr");
-          clickHandler({
-              id          : $this.attr("data-id")
+          var $link = $(this);
+              attrs = $link.attr("data-attr");
+
+          clickHandler.call(self, {
+              id          : $link.attr("data-id")
             , attributes  : attrs ? JSON.parse(attrs) : {}
-            , text        : $this.text()
-          });
+            , text        : $link.text()
+          }, $link);
         });
       }
-    }
-
-    if (method == "destory") {
-      
     }
 
     return $this;

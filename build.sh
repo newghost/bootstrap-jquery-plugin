@@ -15,4 +15,4 @@ cat src/copyright.js js/jquery.bootstrap.min.tmp.js > js/jquery.bootstrap.min.js
 rm js/jquery.bootstrap.min.tmp.js
 
 #wait for 10 seconds
-sleep 10
+sleep 30
