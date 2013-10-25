@@ -216,23 +216,28 @@ section > .container > h1 {
     <div class="col-lg-6">
       <h3>create</h3>
       <hr>
-      <p>Create a dialog</p>
-      <pre class="prettyprint linenums">
+      <p>
+        Create a dialog
+        <a class="btn btn-success" onclick="run('#prevCreateDialog')">Run</a>
+      </p>
+      <pre id="prevCreateDialog" class="prettyprint linenums">
       $("#loginwrap").dialog({title:"Login"});
       </pre>
-      <p><a id="btn_dialog_demo1" class="btn btn-default">Run »</a></p>
 
       <h3>open</h3>
       <hr>
-      <p>Open a dialog</p>
-      <pre class="prettyprint linenums">
+      <p>
+        Open a dialog
+        <a class="btn btn-success" onclick="run('#preOpenDialog')">Run</a>
+      </p>
+      <pre id="preOpenDialog" class="prettyprint linenums">
       $("#loginwrap").dialog("open");
       </pre>
-      <p><a id="btn_dialog_demo1_1" class="btn btn-default">Run »</a></p>
 
       <h3>destroy</h3>
       <hr>
-      <p>Remove the dialog elements from DOM, after destroy <b>you cannot see</b> the form again.</p>
+      <p>
+        Remove the dialog elements from DOM, after destroy <b>you cannot see</b> the form again.</p>
       <pre class="prettyprint linenums">
       $("#loginwrap").dialog("destroy");
       </pre>
@@ -241,10 +246,14 @@ section > .container > h1 {
     <div class="col-lg-6">
       <h3>buttons</h3>
       <hr>
-      <p>Open dialog with buttons</p>
-      <pre class="prettyprint linenums">
+      <p>
+        Open dialog with buttons
+        <a class="btn btn-success" onclick="run('#preButtonDialog')">Run</a>
+      </p>
+      <pre id="preButtonDialog" class="prettyprint linenums">
       $("#loginwrap").dialog({
           title:    "Login"
+        , classed:  "mydialog"  /*add custom class for this dialog*/
         , buttons: [
             {
                 text: "Close"
@@ -257,7 +266,7 @@ section > .container > h1 {
                 text: "Login"
               , classed: "btn-success"
               , click: function() {
-                  //your login handler
+                  /*your login handler*/
 
                   $(this).dialog("close");
                 }
@@ -266,7 +275,7 @@ section > .container > h1 {
                 text: "Destroy"
               , classed: "btn-error"
               , click: function() {
-                  //your login handler
+                  /*your login handler*/
 
                   $(this).dialog("destroy");
                 }
@@ -274,7 +283,7 @@ section > .container > h1 {
           ]
       });
       </pre>
-      <p><a id="btn_dialog_demo2" class="btn btn-default">Run »</a></p>
+      <pre id="preButtonDialog_result"></pre>
     </div>
 
   </div>

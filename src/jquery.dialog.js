@@ -13,7 +13,7 @@ require:
       , $body   = $(document.body)
       , $msgbox = $this.closest(".dialog");
 
-    var create = function(msg, func, opts) {
+    var create = function() {
 
       var msghtml
         = ''
@@ -109,6 +109,8 @@ require:
       }
       createButton();
       $(".modal-title", $msgbox).html(options.title || "");
+      console.log(options, $msgbox, options.classed);
+      options.classed && $msgbox.addClass(options.classed);
       show();
     }
 
