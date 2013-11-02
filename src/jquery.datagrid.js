@@ -72,15 +72,18 @@ require:
 
           readonly  = readonly ? ' readonly="readonly"' : '';
 
-          trow
-            = trow
-            + '<td>'
-            + '<input name="{0}" value="{1}" class="form-control"{2}{3}/>'.format(column.field, value, maxlength, readonly)
-            + '</td>';
-        } else {
-          value = format ? format(value, row) : value;
-          trow = trow + "<td>" + value + "</td>";
+          value
+            = '<input name="{0}" value="{1}" class="form-control"{2}{3}/>'.format(
+                column.field
+              , value
+              , maxlength
+              , readonly
+            );
         }
+
+        //if it has 'formatter' attribute override the content
+        value = format ? format(value, row) : value;
+        trow = trow + "<td>" + value + "</td>";
       };
       trow += "</tr>";
       return trow;
