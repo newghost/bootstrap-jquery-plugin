@@ -97,8 +97,11 @@ var run = function(selector) {
 
   $editTable.datagrid({
     columns:[[
-        {title: "Name", field: "name", readonly: true}
-      , {title: "Type", field: "type"}
+        {title: "Name", field: "name", formatter: function(val) {
+          //override default input field
+          return val;
+        }}
+      , {title: "Type", field: "type", readonly: true}
       , {title: "Number", field: "sum"}
     ]]
     , edit: true

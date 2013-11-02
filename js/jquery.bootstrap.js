@@ -234,7 +234,7 @@ require:
         }
 
         //if it has 'formatter' attribute override the content
-        value = format ? format(value, row) : value;
+        value = format ? format(row[field], row) : value;
         trow = trow + "<td>" + value + "</td>";
       };
       trow += "</tr>";
