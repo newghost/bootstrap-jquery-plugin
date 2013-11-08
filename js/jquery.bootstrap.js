@@ -66,9 +66,6 @@ require:
       $msgbox = $(msghtml);
       $(document.body).append($msgbox);
       $msgbox.find(".modal-body").append($this);
-      
-      //bind event & show
-      $(".modal-header .close").click(close);
     };
 
     var createButton = function() {
@@ -103,7 +100,6 @@ require:
         if (click) {
           (function(click) {
             $button.click(function() {
-              console.log("click", click);
               click.call(self);
             });
           })(click);
@@ -129,7 +125,10 @@ require:
       }
       createButton();
       $(".modal-title", $msgbox).html(options.title || "");
-      console.log(options, $msgbox, options.classed);
+      $(".modal-header .close", $msgbox).click(function() {
+        var closeHandler = options.onClose || close;
+        closeHandler.call(self);
+      });
       options.classed && $msgbox.addClass(options.classed);
       show();
     }
@@ -151,6 +150,36 @@ require:
   };
 
 })(jQuery);/*
+Description: $.messager
+Author: Kris Zhang
+require: 
+  string.format.js
+  $.fn.dialog
+*/
+
+$.messager = (function() {
+
+  var alert = function(title, message) {
+    if (arguments.length < 2) {
+      message = title || "";
+      title   = "&nbsp;"
+    }
+
+    $("<div>" + message + "</div>").dialog({
+        title:   title
+        // override destroy methods;
+      , onClose: function() {
+          $(this).dialog("destroy");
+        }
+    });
+  };
+
+  return {
+      alert: alert
+  };
+
+})();/*
+Description: $.fn.datagrid
 Author: Kris Zhang
 require: 
   string.format.js

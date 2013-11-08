@@ -70,6 +70,7 @@ section > .container > h1 {
         <li class="active"><a href="#home">Home</a></li>
         <li><a href="#string">String</a></li>
         <li><a href="#dialog">Dialog</a></li>
+        <li><a href="#messager">Messager</a></li>
         <li><a href="#datagrid">Datagrid</a></li>
         <li><a href="#tree">Tree</a></li>
       </ul>
@@ -241,6 +242,18 @@ section > .container > h1 {
       <pre class="prettyprint linenums">
       $("#loginwrap").dialog("destroy");
       </pre>
+
+      <h3>onClose</h3>
+      <hr>
+      <p>Override onClose event</p>
+      <pre class="prettyprint linenums">
+      $("#loginwrap").dialog({
+          title:   "DEMO"
+        , onClose: function() { 
+            // your handler
+            $(this).dialog("destroy");
+        }
+      });</pre>
     </div>
 
     <div class="col-lg-6">
@@ -254,6 +267,7 @@ section > .container > h1 {
       $("#loginwrap").dialog({
           title:    "Login"
         , classed:  "mydialog"  /*add custom class for this dialog*/
+        , onClose: function() { $(this).dialog("close"); }
         , buttons: [
             {
                 text: "Close"
@@ -287,6 +301,40 @@ section > .container > h1 {
     </div>
 
   </div>
+</div>
+</section>
+
+<section id="messager">
+<div class="container marketing">
+  <h1>jquery.messager.js</h1>
+  <hr>
+  <p>jquery messager plugin based on bootstrap css</p>
+
+  <h2>alert</h2>
+  <hr>
+  <p>popup alert message</p>
+  <div class="row">
+    <div class="col-lg-6">
+      <p>
+        simple message
+        <a class="btn btn-success" onclick="run('#messagerMsg')">Run</a>
+      </p>
+      <pre id="messagerMsg" class="prettyprint linenums">
+      $.messager.alert("This is message!");
+      </pre>
+    </div>
+
+    <div class="col-lg-6">
+      <p>
+        message with title
+        <a class="btn btn-success" onclick="run('#messagerMsgTitle')">Run</a>
+      </p>
+      <pre id="messagerMsgTitle" class="prettyprint linenums">
+      $.messager.alert("Title", "This is message!");
+      </pre>
+    </div>
+  </div>
+
 </div>
 </section>
 

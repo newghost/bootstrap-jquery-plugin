@@ -46,9 +46,6 @@ require:
       $msgbox = $(msghtml);
       $(document.body).append($msgbox);
       $msgbox.find(".modal-body").append($this);
-      
-      //bind event & show
-      $(".modal-header .close").click(close);
     };
 
     var createButton = function() {
@@ -83,7 +80,6 @@ require:
         if (click) {
           (function(click) {
             $button.click(function() {
-              console.log("click", click);
               click.call(self);
             });
           })(click);
@@ -109,7 +105,10 @@ require:
       }
       createButton();
       $(".modal-title", $msgbox).html(options.title || "");
-      console.log(options, $msgbox, options.classed);
+      $(".modal-header .close", $msgbox).click(function() {
+        var closeHandler = options.onClose || close;
+        closeHandler.call(self);
+      });
       options.classed && $msgbox.addClass(options.classed);
       show();
     }

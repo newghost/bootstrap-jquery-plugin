@@ -1,4 +1,5 @@
 /*
+Description: $.fn.datagrid
 Author: Kris Zhang
 require: 
   string.format.js
