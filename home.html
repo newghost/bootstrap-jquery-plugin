@@ -335,6 +335,36 @@ section > .container > h1 {
     </div>
   </div>
 
+  <h2>confirm</h2>
+  <hr>
+  <p>confirm message</p>
+  <div class="row">
+    <div class="col-lg-6">
+      <p>
+        with callback
+        <a class="btn btn-success" onclick="run('#confirmMsg')">Run</a>
+      </p>
+      <pre id="confirmMsg" class="prettyprint linenums">
+      $.messager.confirm("title", "This is message!", function() { 
+        alert("you closed it")
+      });
+      </pre>
+    </div>
+
+    <div class="col-lg-6">
+      <p>
+        localization, override message
+        <a class="btn btn-success" onclick="run('#localizationMsg')">Run</a>
+      </p>
+      <pre id="localizationMsg" class="prettyprint linenums">
+      $.messager.confirm("title", "This is message!", function() { 
+        alert("you closed it")
+      });
+      $.messager.model = { ok: "关闭", cancel: "取消" }
+      </pre>
+    </div>
+  </div>
+
 </div>
 </section>
 
