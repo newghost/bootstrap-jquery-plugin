@@ -27,7 +27,7 @@ require:
         // + '</div>'
         // + '<div class="mask"></div>'
         // + '</div>'
-        + '<div class="dialog modal fade in">'
+        + '<div class="dialog modal fade">'
         + '<div class="modal-dialog">'
         +   '<div class="modal-content">'
         +     '<div class="modal-header">'
@@ -38,7 +38,6 @@ require:
         +     '<div class="modal-footer"></div>'
         +   '</div>'
         + '</div>'
-        + '<div class="modal-backdrop fade in" style="z-index:-1"></div>'
         + '</div>'
         ;
 
@@ -90,13 +89,17 @@ require:
     };
 
     var show = function() {
-      $msgbox.show();
-      $body.addClass("modal-open");
+      // call the bootstrap modal to handle the show events (fade effects, body class and backdrop div)
+      $msgbox.modal('show');
     };
 
-    var close = function() {
-      $msgbox.hide();
-      $body.removeClass("modal-open");
+    var close = function(destroy) {
+      // call the bootstrap modal to handle the hide events and remove msgbox after the modal is hidden
+      $msgbox.modal('hide').on('hidden.bs.modal', function() {
+                if (destroy) {
+                    $msgbox.remove();
+                }
+            });
     };
 
     if (options.constructor == Object) {
@@ -114,8 +117,7 @@ require:
     }
 
     if (options == "destroy") {
-      close();
-      $msgbox.remove();
+      close(true);
     }
 
     if (options == "close") {
