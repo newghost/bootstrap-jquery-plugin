@@ -65,7 +65,7 @@ require:
         if (btnObj.constructor == Object) {
           id      = btnObj.id;
           text    = btnObj.text;
-          classed = btnObj.classed || classed;
+          classed = btnObj.class || classed;
           click   = btnObj.click;
         }
 
