@@ -1,4 +1,4 @@
-Bootstrap Juqery Plguin Library
+Bootstrap jQuery Plugin Library
 ----
 Some jQuery plugins based on bootstrap, have fun.
 
@@ -13,6 +13,6 @@ Documents
 ====
 [bootstrap.ourjs.com](http://bootstrap.ourjs.com)
 
-Lincenses
+License
 ====
 MIT, see our license file
