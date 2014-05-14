@@ -18,11 +18,13 @@ Dependence: string.js
       var tree = [];
       !root && tree.push('<ul style="display:{0}">'.format(parentState == "close" ? "none" : "block"));
 
-      data.forEach(function(node) {
-        var children    = node.children
+      for (var i = 0, l = data.length; i < l; i++) {
+        var node        = data[i]
+          , children    = node.children
           , id          = node.id
           , state       = node.state
-          , attributes  = node.attributes;
+          , attributes  = node.attributes
+          ;
 
         tree.push('<li>');
         if (1) {
@@ -40,7 +42,7 @@ Dependence: string.js
         ));
         children && pushFn.apply(tree, build(children, false, state));
         tree.push('</li>');
-      });
+      };
       !root && tree.push('</ul>')
 
       return tree;
