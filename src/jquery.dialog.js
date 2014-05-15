@@ -112,7 +112,7 @@ require:
         var closeHandler = options.onClose || close;
         closeHandler.call(self);
       });
-      options.classed && $msgbox.addClass(options.classed);
+      (options['class'] || options.classed) && $msgbox.addClass(options['class'] || options.classed);
       show();
     }
 

@@ -47,18 +47,17 @@ require:
         // + '</div>'
         // + '<div class="mask"></div>'
         // + '</div>'
-        + '<div class="dialog modal fade in">'
+        + '<div class="dialog modal fade">'
         + '<div class="modal-dialog">'
         +   '<div class="modal-content">'
         +     '<div class="modal-header">'
-        +         '<button type="button" class="close">×</button>'
+        +         '<button type="button" class="close">&times;</button>'
         +         '<h4 class="modal-title"></h4>'
         +     '</div>'
         +     '<div class="modal-body"></div>'
         +     '<div class="modal-footer"></div>'
         +   '</div>'
         + '</div>'
-        + '<div class="modal-backdrop fade in" style="z-index:-1"></div>'
         + '</div>'
         ;
 
@@ -85,7 +84,7 @@ require:
         if (btnObj.constructor == Object) {
           id      = btnObj.id;
           text    = btnObj.text;
-          classed = btnObj.classed || classed;
+          classed = btnObj['class'] || btnObj.classed || classed;
           click   = btnObj.click;
         }
 
@@ -110,13 +109,17 @@ require:
     };
 
     var show = function() {
-      $msgbox.show();
-      $body.addClass("modal-open");
+      // call the bootstrap modal to handle the show events (fade effects, body class and backdrop div)
+      $msgbox.modal('show');
     };
 
-    var close = function() {
-      $msgbox.hide();
-      $body.removeClass("modal-open");
+    var close = function(destroy) {
+      // call the bootstrap modal to handle the hide events and remove msgbox after the modal is hidden
+      $msgbox.modal('hide').on('hidden.bs.modal', function() {
+                if (destroy) {
+                    $msgbox.remove();
+                }
+            });
     };
 
     if (options.constructor == Object) {
@@ -129,13 +132,12 @@ require:
         var closeHandler = options.onClose || close;
         closeHandler.call(self);
       });
-      options.classed && $msgbox.addClass(options.classed);
+      (options['class'] || options.classed) && $msgbox.addClass(options['class'] || options.classed);
       show();
     }
 
     if (options == "destroy") {
-      close();
-      $msgbox.remove();
+      close(true);
     }
 
     if (options == "close") {
@@ -149,7 +151,8 @@ require:
     return $this;
   };
 
-})(jQuery);/*
+})(jQuery);
+/*
 Description: $.messager
 Author: Kris Zhang
 require: 
@@ -464,11 +467,13 @@ Dependence: string.js
       var tree = [];
       !root && tree.push('<ul style="display:{0}">'.format(parentState == "close" ? "none" : "block"));
 
-      data.forEach(function(node) {
-        var children    = node.children
+      for (var i = 0, l = data.length; i < l; i++) {
+        var node        = data[i]
+          , children    = node.children
           , id          = node.id
           , state       = node.state
-          , attributes  = node.attributes;
+          , attributes  = node.attributes
+          ;
 
         tree.push('<li>');
         if (1) {
@@ -486,7 +491,7 @@ Dependence: string.js
         ));
         children && pushFn.apply(tree, build(children, false, state));
         tree.push('</li>');
-      });
+      };
       !root && tree.push('</ul>')
 
       return tree;
