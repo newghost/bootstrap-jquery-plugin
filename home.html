@@ -266,19 +266,19 @@ section > .container > h1 {
       <pre id="preButtonDialog" class="prettyprint linenums">
       $("#loginwrap").dialog({
           title:    "Login"
-        , classed:  "mydialog"  /*add custom class for this dialog*/
+        , 'class':  "mydialog"  /*add custom class for this dialog*/
         , onClose: function() { $(this).dialog("close"); }
         , buttons: [
             {
                 text: "Close"
-              , classed: "btn-primary"
+              , 'class': "btn-primary"
               , click: function() {
                   $(this).dialog("close");
                 }
             },
             {
                 text: "Login"
-              , classed: "btn-success"
+              , 'class': "btn-success"
               , click: function() {
                   /*your login handler*/
 
@@ -287,7 +287,7 @@ section > .container > h1 {
             },
             {
                 text: "Destroy"
-              , classed: "btn-error"
+              , classed: "btn-error"  /*classed equal to 'class'*/
               , click: function() {
                   /*your login handler*/
 
