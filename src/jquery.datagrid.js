@@ -218,7 +218,7 @@ require:
       }
     }
 
-    return $this;
+    return self;
   };
 
 

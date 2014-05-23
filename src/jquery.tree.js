@@ -87,7 +87,7 @@ Dependence: string.js
       }
     }
 
-    return $this;
+    return self;
   };
 
 })(jQuery);

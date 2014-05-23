@@ -31,22 +31,14 @@ require:
     var self    = this
       , $this   = $(self)
       , $body   = $(document.body)
-      , $msgbox = $this.closest(".dialog");
+      , $msgbox = $this.closest('.dialog')
+      , parentDataName = 'dialog-parent'
+      ;
 
     var create = function() {
 
       var msghtml
         = ''
-        // + '<div class="dialog">'
-        // + '<div class="msg">'
-        // +   '<h3 class="msgh"></h3>'
-        // +   '<div class="msgb"></div>'
-        // +   '<table class="msgf">'
-        // +   '<tr></tr>'
-        // +   '</table>'
-        // + '</div>'
-        // + '<div class="mask"></div>'
-        // + '</div>'
         + '<div class="dialog modal fade">'
         + '<div class="modal-dialog">'
         +   '<div class="modal-content">'
@@ -117,12 +109,15 @@ require:
       // call the bootstrap modal to handle the hide events and remove msgbox after the modal is hidden
       $msgbox.modal('hide').on('hidden.bs.modal', function() {
                 if (destroy) {
+                    $this.data(parentDataName).append($this);
                     $msgbox.remove();
                 }
             });
     };
 
     if (options.constructor == Object) {
+      !$this.data(parentDataName) && $this.data(parentDataName, $this.parent());
+
       if ($msgbox.size() < 1) {
         create();
       }
@@ -148,7 +143,7 @@ require:
       show();
     }
 
-    return $this;
+    return self;
   };
 
 })(jQuery);
@@ -443,7 +438,7 @@ require:
       }
     }
 
-    return $this;
+    return self;
   };
 
 
@@ -536,7 +531,7 @@ Dependence: string.js
       }
     }
 
-    return $this;
+    return self;
   };
 
 })(jQuery);
