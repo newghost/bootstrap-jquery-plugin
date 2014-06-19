@@ -24,7 +24,7 @@ $.messager = (function() {
         }
       , buttons: [{
             text: model.ok.text
-          , classed: (model.ok.classes ? model.ok.classes : "btn-success")
+          , classed: model.ok.classed || "btn-success"
           , click: function() {
               $(this).dialog("destroy");
             }
@@ -43,7 +43,7 @@ $.messager = (function() {
         }
       , buttons: [{
             text: model.ok.text
-          , classed: (model.ok.classes ? model.ok.classes : "btn-success")
+          , classed: model.ok.classed || "btn-success"
           , click: function() {
               $(this).dialog("destroy");
               callback && callback();
@@ -51,7 +51,7 @@ $.messager = (function() {
         },
         {
             text: model.cancel.text
-            classed : (model.cancel.classes ? model.cancel.classes : "btn-danger"),
+            classed : model.cancel.classed || "btn-danger",
           , click: function() {
               $(this).dialog("destroy");
             }
@@ -68,6 +68,6 @@ $.messager = (function() {
 
 
 $.messager.model = {
-    ok: { text : "OK", classes : 'btn-success' },
-    cancel: { text : "Cancel", classes : 'btn-danger' }
+    ok: { text : "OK", classed : 'btn-success' },
+    cancel: { text : "Cancel", classed : 'btn-danger' }
 };
