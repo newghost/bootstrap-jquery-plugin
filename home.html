@@ -357,10 +357,13 @@ section > .container > h1 {
         <a class="btn btn-success" onclick="run('#localizationMsg')">Run</a>
       </p>
       <pre id="localizationMsg" class="prettyprint linenums">
+      $.messager.model = { 
+        ok:{ text: "关闭", classed: 'btn-default' },
+        cancel: { text: "取消", classed: 'btn-error' }
+      };
       $.messager.confirm("title", "This is message!", function() { 
         alert("you closed it")
       });
-      $.messager.model = { ok: "关闭", cancel: "取消" }
       </pre>
     </div>
   </div>

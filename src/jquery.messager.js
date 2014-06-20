@@ -51,7 +51,7 @@ $.messager = (function() {
         },
         {
             text: model.cancel.text
-            classed : model.cancel.classed || "btn-danger",
+          , classed : model.cancel.classed || "btn-danger"
           , click: function() {
               $(this).dialog("destroy");
             }

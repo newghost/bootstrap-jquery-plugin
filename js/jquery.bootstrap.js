@@ -172,8 +172,8 @@ $.messager = (function() {
           $(this).dialog("destroy");
         }
       , buttons: [{
-            text: model.ok
-          , classed: "btn-success"
+            text: model.ok.text
+          , classed: model.ok.classed || "btn-success"
           , click: function() {
               $(this).dialog("destroy");
             }
@@ -191,15 +191,16 @@ $.messager = (function() {
           $(this).dialog("destroy");
         }
       , buttons: [{
-            text: model.ok
-          , classed: "btn-success"
+            text: model.ok.text
+          , classed: model.ok.classed || "btn-success"
           , click: function() {
               $(this).dialog("destroy");
               callback && callback();
             }
         },
         {
-            text: model.cancel
+            text: model.cancel.text
+          , classed : model.cancel.classed || "btn-danger"
           , click: function() {
               $(this).dialog("destroy");
             }
@@ -216,9 +217,10 @@ $.messager = (function() {
 
 
 $.messager.model = {
-    ok: "OK"
-  , cancel:  "Cancel"
-};/*
+    ok: { text : "OK", classed : 'btn-success' },
+    cancel: { text : "Cancel", classed : 'btn-danger' }
+};
+/*
 Description: $.fn.datagrid
 Author: Kris Zhang
 require: 
