@@ -108,7 +108,7 @@ require:
         closeHandler.call(self);
       });
       (options['class'] || options.classed) && $msgbox.addClass(options['class'] || options.classed);
-      show();
+      options.autoOpen !== false && show();
     }
 
     if (options == "destroy") {

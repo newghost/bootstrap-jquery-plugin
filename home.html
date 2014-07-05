@@ -225,6 +225,16 @@ section > .container > h1 {
       $("#loginwrap").dialog({title:"Login"});
       </pre>
 
+      <h3>create without auto open</h3>
+      <hr>
+      <p>
+        Create a dialog
+        <a class="btn btn-success" onclick="run('#prevCreateDialogWithoutAuto')">Run</a>
+      </p>
+      <pre id="prevCreateDialogWithoutAuto" class="prettyprint linenums">
+      $("#loginwrap").dialog({title:"Login", autoOpen: false});
+      </pre>
+
       <h3>open</h3>
       <hr>
       <p>
