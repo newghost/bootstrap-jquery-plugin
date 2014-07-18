@@ -39,8 +39,8 @@ require:
       $msgbox.find(".modal-body").append($this);
     };
 
-    var createButton = function() {
-      var buttons = options.buttons || {}
+    var createButton = function(_options) {
+      var buttons = (_options || options || {}).buttons || {}
         , $btnrow = $msgbox.find(".modal-footer");
 
       //clear old buttons
@@ -121,6 +121,11 @@ require:
     }
 
     if (options == "open") {
+      show();
+    }
+
+    if (options == "option") {
+      arguments[1] == 'buttons' && createButton({ buttons: arguments[2] });
       show();
     }
 

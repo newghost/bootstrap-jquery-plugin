@@ -264,6 +264,25 @@ section > .container > h1 {
             $(this).dialog("destroy");
         }
       });</pre>
+
+      <h3>option buttons</h3>
+      <hr>
+      <p>
+        Redefine the buttons
+        <a class="btn btn-success" onclick="run('#preChangeButton')">Run</a>
+      </p>
+      <pre id="preChangeButton" class="prettyprint linenums">
+      $( "#loginwrap" ).dialog(
+          "option"
+        , "buttons"
+        , [{ 
+              text: "Ok"
+            , click: function() {
+                $( this ).dialog( "close" );
+            }
+        }]
+      );
+      </pre>
     </div>
 
     <div class="col-lg-6">
@@ -307,7 +326,6 @@ section > .container > h1 {
           ]
       });
       </pre>
-      <pre id="preButtonDialog_result"></pre>
 
       <h3>buttons: Object</h3>
       <hr>
@@ -332,7 +350,6 @@ section > .container > h1 {
           }
       });
       </pre>
-      <pre id="preButtonDialogObject_result"></pre>
     </div>
 
   </div>
