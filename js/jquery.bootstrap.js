@@ -81,6 +81,7 @@ require:
         }
 
         if (btnObj.constructor == Function) {
+          text  = button;
           click = btnObj;
         }
 

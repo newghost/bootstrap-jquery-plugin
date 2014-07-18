@@ -267,7 +267,7 @@ section > .container > h1 {
     </div>
 
     <div class="col-lg-6">
-      <h3>buttons</h3>
+      <h3>buttons: Array</h3>
       <hr>
       <p>
         Open dialog with buttons
@@ -308,6 +308,31 @@ section > .container > h1 {
       });
       </pre>
       <pre id="preButtonDialog_result"></pre>
+
+      <h3>buttons: Object</h3>
+      <hr>
+      <p>
+        Open dialog with buttons: Object
+        <a class="btn btn-success" onclick="run('#preButtonDialogObject')">Run</a>
+      </p>
+      <pre id="preButtonDialogObject" class="prettyprint linenums">
+      $("#loginwrap").dialog({
+          title:    "Login"
+        , 'class':  "mydialog"  /*add custom class for this dialog*/
+        , onClose: function() { $(this).dialog("close"); }
+        , buttons: {
+              "Close": function() {
+                  $(this).dialog("close");
+              }
+            , "Login": function() {
+                  /*your login handler*/
+
+                  $(this).dialog("close");
+              }
+          }
+      });
+      </pre>
+      <pre id="preButtonDialogObject_result"></pre>
     </div>
 
   </div>
