@@ -13,6 +13,8 @@ require:
       , $body   = $(document.body)
       , $msgbox = $this.closest('.dialog')
       , parentDataName = 'dialog-parent'
+      , arg1    = arguments[1]
+      , arg2    = arguments[2]
       ;
 
     var create = function() {
@@ -79,6 +81,8 @@ require:
 
         $btnrow.append($button);
       }
+
+      $btnrow.data('buttons', buttons);
     };
 
     var show = function() {
@@ -125,8 +129,14 @@ require:
     }
 
     if (options == "option") {
-      arguments[1] == 'buttons' && createButton({ buttons: arguments[2] });
-      show();
+      if (arg1 == 'buttons') {
+        if (arg2) {
+          createButton({ buttons: arg2 });
+          show();
+        } else {
+          return $msgbox.find(".modal-footer").data('buttons');
+        }
+      }
     }
 
     return self;
