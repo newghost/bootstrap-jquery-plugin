@@ -85,9 +85,10 @@ require:
       $btnrow.data('buttons', buttons);
     };
 
-    var show = function() {
+    var show = function(modalOpts) {
+      modalOpts.show = true;
       // call the bootstrap modal to handle the show events (fade effects, body class and backdrop div)
-      $msgbox.modal('show');
+      $msgbox.modal(modalOpts);
     };
 
     var close = function(destroy) {
@@ -113,7 +114,7 @@ require:
         closeHandler.call(self);
       });
       (options['class'] || options.classed) && $msgbox.addClass(options['class'] || options.classed);
-      options.autoOpen !== false && show();
+      options.autoOpen !== false && show(options.modalOpts || {});
     }
 
     if (options == "destroy") {
@@ -125,7 +126,7 @@ require:
     }
 
     if (options == "open") {
-      show();
+      show(options.modalOpts || {});
     }
 
     if (options == "option") {
