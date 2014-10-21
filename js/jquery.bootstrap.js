@@ -127,7 +127,8 @@ require:
         create();
       }
       createButton();
-      $(".modal-title", $msgbox).html(options.title || "");
+      $(".modal-title",  $msgbox).html(options.title || "");
+      $(".modal-dialog", $msgbox).addClass(options.dialogClass || "");
       $(".modal-header .close", $msgbox).click(function() {
         var closeHandler = options.onClose || close;
         closeHandler.call(self);
