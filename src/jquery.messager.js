@@ -59,8 +59,42 @@ $.messager = (function() {
     });
   };
 
+  /*
+  * popup message
+  */
+  var msghtml
+    = ''
+    + '<div class="dialog modal fade msg-popup">'
+    + '<div class="modal-dialog modal-sm">'
+    +   '<div class="modal-content">'
+    +     '<div class="modal-body text-center"></div>'
+    +   '</div>'
+    + '</div>'
+    + '</div>'
+    ;
+
+  var $msgbox
+    , offTimer
+    ;
+
+  var popup = function(message) {
+    if (!$msgbox) {
+      $msgbox = $(msghtml);
+      $('body').append($msgbox);
+    }
+
+    $msgbox.find(".modal-body").html(message);
+    $msgbox.modal({show: true, backdrop: false});
+
+    clearTimeout(offTimer);
+    offTimer = setTimeout(function() {
+      $msgbox.modal('hide');
+    }, 1500);
+  };
+
   return {
       alert:   alert
+    , popup:   popup
     , confirm: confirm
   };
 

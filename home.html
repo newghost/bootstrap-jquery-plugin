@@ -436,6 +436,56 @@ section > .container > h1 {
     </div>
   </div>
 
+  <h2>popup</h2>
+  <hr>
+  <p>popup message</p>
+  <div class="row">
+    <div class="col-lg-6">
+      <p>
+        <a class="btn btn-success" onclick="run('#popupmsg')">Run</a>
+      </p>
+      <pre id="popupmsg" class="prettyprint linenums">
+      $.messager.popup("This is message!");
+      </pre>
+    </div>
+
+    <div class="col-lg-6">
+      <p>
+        custom css, apply and run again
+        <a class="btn btn-success" onclick="apply('#popupmsg_custom')">Apply</a>
+      </p>
+      <pre id="popupmsg_custom" class="prettyprint">
+      &lt;style&gt;
+      .modal-open {
+        overflow: auto;
+        padding: 0 !important;
+      }
+
+      .modal.msg-popup {
+        top: auto;
+      }
+
+      .modal.msg-popup .modal-dialog {
+        width: 300px !important;
+        margin: 30px auto 60px;
+      }
+
+      .modal.msg-popup .modal-body {
+        background-color: #000;
+        color: #fff;
+      }
+
+      .modal.msg-popup .modal-content {
+        border: none;
+      }
+      &lt;/style&gt;
+      &lt;script&gt;
+      $.messager.popup("Custom layout");
+      &lt;/script&gt;
+      </pre>
+    </div>
+  </div>
+
 </div>
 </section>
 
