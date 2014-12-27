@@ -302,7 +302,7 @@ section > .container > h1 {
     </div>
 
     <div class="col-lg-6">
-      <h3>buttons: Array</h3>
+      <h3>buttons: Array; class: Custom Class</h3>
       <hr>
       <p>
         Open dialog with buttons
@@ -364,6 +364,27 @@ section > .container > h1 {
                   $(this).dialog("close");
               }
           }
+      });
+      </pre>
+
+      <h3>dialogClass: Optional sizes</h3>
+      <p>
+        Smaller <a class="btn btn-success" onclick="run('#preButtonSmallDialog')">Run</a>
+      </p>
+      <pre id="preButtonSmallDialog" class="prettyprint linenums">
+      $("#loginwrap").dialog({
+          title       : "Login"
+        , dialogClass : "modal-sm"
+      });
+      </pre>
+
+      <p>
+        Bigger <a class="btn btn-success" onclick="run('#preButtonBigDialog')">Run</a>
+      </p>
+      <pre id="preButtonBigDialog" class="prettyprint linenums">
+      $("#loginwrap").dialog({
+          title       : "Login"
+        , dialogClass : "modal-lg"
       });
       </pre>
     </div>
