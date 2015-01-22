@@ -21,10 +21,8 @@ if (!String.prototype.format) {
 }/*
 Description: $.fn.dialog
 Author: Kris Zhang
-require: 
-  string.format.js
 */
-(function($) {
+;(function($) {
 
   $.fn.dialog = function(options) {
 
@@ -88,7 +86,7 @@ require:
         }
 
         //<button data-bb-handler="danger" type="button" class="btn btn-danger">Danger!</button>
-        $button = $('<button type="button" class="btn {1}">{0}</button>'.format(text, classed));
+        $button = $('<button type="button" class="btn">').addClass(classed).html(text);
 
         id && $button.attr("id", id);
         if (click) {
