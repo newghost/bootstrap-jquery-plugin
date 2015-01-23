@@ -44,7 +44,7 @@ Author: Kris Zhang
         , $btnrow = $msgbox.find(".modal-footer");
 
       //clear old buttons
-      $btnrow.html('');
+      $btnrow.empty();
 
       for (var button in buttons) {
         var btnObj  = buttons[button]
@@ -90,12 +90,12 @@ Author: Kris Zhang
 
     var close = function(destroy) {
       // call the bootstrap modal to handle the hide events and remove msgbox after the modal is hidden
-      $msgbox.modal('hide').on('hidden.bs.modal', function() {
-                if (destroy) {
-                    $this.data(parentDataName).append($this);
-                    $msgbox.remove();
-                }
-            });
+      $msgbox.modal('hide').one('hidden.bs.modal', function() {
+          if (destroy) {
+              $this.data(parentDataName).append($this);
+              $msgbox.remove();
+          }
+      });
     };
 
     if (options.constructor == Object) {
