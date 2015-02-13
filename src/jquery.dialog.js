@@ -1,10 +1,8 @@
 /*
 Description: $.fn.dialog
 Author: Kris Zhang
-require: 
-  string.format.js
 */
-(function($) {
+;(function($) {
 
   $.fn.dialog = function(options) {
 
@@ -46,7 +44,7 @@ require:
         , $btnrow = $msgbox.find(".modal-footer");
 
       //clear old buttons
-      $btnrow.html('');
+      $btnrow.empty();
 
       for (var button in buttons) {
         var btnObj  = buttons[button]
@@ -68,7 +66,7 @@ require:
         }
 
         //<button data-bb-handler="danger" type="button" class="btn btn-danger">Danger!</button>
-        $button = $('<button type="button" class="btn {1}">{0}</button>'.format(text, classed));
+        $button = $('<button type="button" class="btn">').addClass(classed).html(text);
 
         id && $button.attr("id", id);
         if (click) {
@@ -92,12 +90,12 @@ require:
 
     var close = function(destroy) {
       // call the bootstrap modal to handle the hide events and remove msgbox after the modal is hidden
-      $msgbox.modal('hide').on('hidden.bs.modal', function() {
-                if (destroy) {
-                    $this.data(parentDataName).append($this);
-                    $msgbox.remove();
-                }
-            });
+      $msgbox.modal('hide').one('hidden.bs.modal', function() {
+          if (destroy) {
+              $this.data(parentDataName).append($this);
+              $msgbox.remove();
+          }
+      });
     };
 
     if (options.constructor == Object) {
@@ -107,7 +105,8 @@ require:
         create();
       }
       createButton();
-      $(".modal-title", $msgbox).html(options.title || "");
+      $(".modal-title",  $msgbox).html(options.title || "");
+      $(".modal-dialog", $msgbox).addClass(options.dialogClass || "");
       $(".modal-header .close", $msgbox).click(function() {
         var closeHandler = options.onClose || close;
         closeHandler.call(self);

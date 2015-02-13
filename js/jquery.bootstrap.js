@@ -21,10 +21,8 @@ if (!String.prototype.format) {
 }/*
 Description: $.fn.dialog
 Author: Kris Zhang
-require: 
-  string.format.js
 */
-(function($) {
+;(function($) {
 
   $.fn.dialog = function(options) {
 
@@ -88,7 +86,7 @@ require:
         }
 
         //<button data-bb-handler="danger" type="button" class="btn btn-danger">Danger!</button>
-        $button = $('<button type="button" class="btn {1}">{0}</button>'.format(text, classed));
+        $button = $('<button type="button" class="btn">').addClass(classed).html(text);
 
         id && $button.attr("id", id);
         if (click) {
@@ -127,7 +125,8 @@ require:
         create();
       }
       createButton();
-      $(".modal-title", $msgbox).html(options.title || "");
+      $(".modal-title",  $msgbox).html(options.title || "");
+      $(".modal-dialog", $msgbox).addClass(options.dialogClass || "");
       $(".modal-header .close", $msgbox).click(function() {
         var closeHandler = options.onClose || close;
         closeHandler.call(self);
@@ -224,8 +223,42 @@ $.messager = (function() {
     });
   };
 
+  /*
+  * popup message
+  */
+  var msghtml
+    = ''
+    + '<div class="dialog modal fade msg-popup">'
+    + '<div class="modal-dialog modal-sm">'
+    +   '<div class="modal-content">'
+    +     '<div class="modal-body text-center"></div>'
+    +   '</div>'
+    + '</div>'
+    + '</div>'
+    ;
+
+  var $msgbox
+    , offTimer
+    ;
+
+  var popup = function(message) {
+    if (!$msgbox) {
+      $msgbox = $(msghtml);
+      $('body').append($msgbox);
+    }
+
+    $msgbox.find(".modal-body").html(message);
+    $msgbox.modal({show: true, backdrop: false});
+
+    clearTimeout(offTimer);
+    offTimer = setTimeout(function() {
+      $msgbox.modal('hide');
+    }, 1500);
+  };
+
   return {
       alert:   alert
+    , popup:   popup
     , confirm: confirm
   };
 

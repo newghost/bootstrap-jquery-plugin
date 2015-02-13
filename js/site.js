@@ -17,49 +17,9 @@ var run = function(selector) {
   $result.size() && $result.html(JSON.stringify(result));
 };
 
-//dialog
-(function() {
-  $("#btn_dialog_demo1").click(function() {
-    $("#loginwrap").dialog({ title:    "Login" });
-  });
-
-  $("#btn_dialog_demo1_1").click(function() {
-    $("#loginwrap").dialog("open");
-  });
-
-  $("#btn_dialog_demo2").click(function() {
-    $("#loginwrap").dialog({
-        title:    "Login"
-      , buttons: [
-          {
-              text: "Close"
-            , classed: "btn-primary"
-            , click: function() {
-                $(this).dialog("close");
-              }
-          },
-          {
-              text: "Login"
-            , classed: "btn-success"
-            , click: function() {
-                //your login handler
-
-                $(this).dialog("close");
-              }
-          },
-          {
-              text: "Destroy"
-            , classed: "btn-warning"
-            , click: function() {
-                //your login handler
-
-                $(this).dialog("destroy");
-              }
-          }
-        ]
-    });
-  });
-})();
+var apply = function(selector) {
+  $('body').append($(selector).text());
+};
 
 //datagrid
 (function() {

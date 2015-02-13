@@ -188,7 +188,9 @@ section > .container > h1 {
 
 <section id="dialog">
 <div class="container">
-  <h1>jquery.dialog.js</h1>
+  <h1>
+    <a href="https://raw.githubusercontent.com/newghost/bootstrap-jquery-plugin/master/src/jquery.dialog.js">jquery.dialog.js</a>
+  </h1>
   <hr>
 
   <p>jquery dialog plugin based on bootstrap css</p>
@@ -302,7 +304,7 @@ section > .container > h1 {
     </div>
 
     <div class="col-lg-6">
-      <h3>buttons: Array</h3>
+      <h3>buttons: Array; class: Custom Class</h3>
       <hr>
       <p>
         Open dialog with buttons
@@ -364,6 +366,27 @@ section > .container > h1 {
                   $(this).dialog("close");
               }
           }
+      });
+      </pre>
+
+      <h3>dialogClass: Optional sizes</h3>
+      <p>
+        Smaller <a class="btn btn-success" onclick="run('#preButtonSmallDialog')">Run</a>
+      </p>
+      <pre id="preButtonSmallDialog" class="prettyprint linenums">
+      $("#loginwrap").dialog({
+          title       : "Login"
+        , dialogClass : "modal-sm"
+      });
+      </pre>
+
+      <p>
+        Bigger <a class="btn btn-success" onclick="run('#preButtonBigDialog')">Run</a>
+      </p>
+      <pre id="preButtonBigDialog" class="prettyprint linenums">
+      $("#loginwrap").dialog({
+          title       : "Login"
+        , dialogClass : "modal-lg"
       });
       </pre>
     </div>
@@ -432,6 +455,56 @@ section > .container > h1 {
       $.messager.confirm("title", "This is message!", function() { 
         alert("you closed it")
       });
+      </pre>
+    </div>
+  </div>
+
+  <h2>popup</h2>
+  <hr>
+  <p>popup message</p>
+  <div class="row">
+    <div class="col-lg-6">
+      <p>
+        <a class="btn btn-success" onclick="run('#popupmsg')">Run</a>
+      </p>
+      <pre id="popupmsg" class="prettyprint linenums">
+      $.messager.popup("This is message!");
+      </pre>
+    </div>
+
+    <div class="col-lg-6">
+      <p>
+        custom css, apply and run again
+        <a class="btn btn-success" onclick="apply('#popupmsg_custom')">Apply</a>
+      </p>
+      <pre id="popupmsg_custom" class="prettyprint">
+      &lt;style&gt;
+      .modal-open {
+        overflow: auto;
+        padding: 0 !important;
+      }
+
+      .modal.msg-popup {
+        top: auto;
+      }
+
+      .modal.msg-popup .modal-dialog {
+        width: 300px !important;
+        margin: 30px auto 60px;
+      }
+
+      .modal.msg-popup .modal-body {
+        background-color: #000;
+        color: #fff;
+      }
+
+      .modal.msg-popup .modal-content {
+        border: none;
+      }
+      &lt;/style&gt;
+      &lt;script&gt;
+      $.messager.popup("Custom layout");
+      &lt;/script&gt;
       </pre>
     </div>
   </div>

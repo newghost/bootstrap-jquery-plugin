@@ -1,0 +1,8 @@
+{
+  "name": "bootstrap-jquery-plugin", 
+  "description": "Some jQueryUI plguins(same API) work with Bootstrap CSS", 
+  "version": "0.0.1",
+  "dependencies": {
+      "uglify-js"      : "1.x"
+  }
+}
