@@ -10,13 +10,14 @@ require:
   $.fn.datagrid = function(method, options) {
 
     var self          = this
-      , selectedClass = "success"
-      , $this         = $(this)
+      , $this         = $(self)
+      , conf          = $this.data("config")  || {}
+      , rows          = $this.data("rows")    || []
+      , selectedClass = conf.selectedClass    || "success"
       ;
 
     var bindRows = function($rows) {
-      var conf          = $this.data("config")
-        , selectChange  = conf.selectChange
+      var selectChange  = conf.selectChange
         , singleSelect  = conf.singleSelect
         , edit          = conf.edit
         ;
@@ -25,7 +26,7 @@ require:
         var $row              = $(this)
           , hasSelectedClass  = $row.hasClass(selectedClass)
           , idx               = $("tbody tr", $this).index($row)
-          , row               = $this.data("rows")[idx] || {}
+          , row               = rows[idx] || {}
           ;
 
         //rows may added dynamiclly
@@ -42,7 +43,7 @@ require:
         var $input  = $(this)
           , $row    = $input.closest("tr")
           , idx     = $("tbody tr", $this).index($row)
-          , row     = $this.data("rows")[idx] || {}
+          , row     = rows[idx] || {}
           , name    = $input.attr("name")
           ;
 
@@ -51,7 +52,7 @@ require:
       edit && $rows.find("input").keyup(editHandler);
     };
 
-    var getRow = function(columns, row, conf) {
+    var getRow = function(columns, row) {
       var trow = "<tr>";
 
       for (var j = 0, m = columns[0].length; j < m; j++) {
@@ -93,14 +94,13 @@ require:
     var getData = function(edit) {
       if (!options) return;
 
-      var config  = $this.data("config") || {}
-        , columns = config.columns
+      var columns = conf.columns
         , rows    = options.rows || options;
 
       var body = "<tbody>";
       if (rows) {
         for (var i = 0, l = rows.length; i < l; i++) {
-          body += getRow(columns, rows[i], config);
+          body += getRow(columns, rows[i]);
         }
       }
       body += "</tbody>";
@@ -111,9 +111,18 @@ require:
         .append(body);
 
       //add "edit" class if it's edit mode.
-      config.edit && $this.addClass("edit");
+      conf.edit && $this.addClass("edit");
       //rebind events
       bindRows($("tbody tr", $this));
+    };
+
+    var getSelectedIndex = function() {
+      if (options && typeof options.index != "undefined") {
+        return options.index;
+      } else {
+        var $selRows = $this.find('tbody tr.' + selectedClass);
+        return $this.find('tbody tr').index($selRows);
+      }
     };
 
     //handle: $().datagrid({column: [[]]})
@@ -141,15 +150,15 @@ require:
     if (method == "loadData") getData();
 
     if (method == "getData") {
-      return $this.data("rows");
+      return rows;
     }
 
     if (method == "getConfig") {
-      return $this.data("config");
+      return conf;
     }
 
     if (method == "getColumns") {
-      return $this.data("config").columns;
+      return conf.columns;
     }
 
     if (method == "unselectRow") {
@@ -159,19 +168,18 @@ require:
     }
 
     if (method == "updateRow") {
-      var idx     = options.index
-        , conf    = $this.data("config")
-        , rows    = $this.data("rows")
+      var idx     = getSelectedIndex()
         , row     = options.row
         , columns = conf.columns
         ;
 
-      if (rows) {
-        row = $.extend(rows[idx], row);
-        $this.data("rows", rows);
-      }
+      if (idx < 0) return;
+
+      rows && (row = $.extend(rows[idx], row));
 
       var $row = $(getRow(columns, row, conf));
+
+      typeof options.index == "undefined" && $row.addClass(selectedClass);
 
       $("tbody tr", $this).eq(idx)
         .after($row)
@@ -181,8 +189,7 @@ require:
     }
 
     if (method == "getSelections") {
-      var rows    = $this.data("rows")
-        , selRows = [];
+      var selRows = [];
 
       $("tbody tr", $this).each(function(idx) {
         $(this).hasClass(selectedClass) && selRows.push(rows[idx]);
@@ -191,12 +198,16 @@ require:
       return selRows;
     }
 
+    if (method == "getSelectedIndex") {
+      return getSelectedIndex();
+    }
+
     if (method == "insertRow") {
-      var idx   = options.index || 0
+      var idx   = getSelectedIndex()
         , row   = options.row
-        , conf  = $this.data("config")
-        , rows  = $this.data("rows") || []
         ;
+
+      if (idx < 0) return;
 
       if (!conf || !row) return $this;
 
@@ -211,10 +222,11 @@ require:
     }
 
     if (method == "deleteRow") {
-      if (options > -1) {
-        $("tbody tr", $this).eq(options).remove();
-        var rows = $this.data("rows");
-        rows.splice(options, 1);
+      var idx = typeof options == "number" ? options : getSelectedIndex();
+
+      if (idx > -1) {
+        $("tbody tr", $this).eq(idx).remove();
+        rows.splice(idx, 1);
       }
     }
 

@@ -65,8 +65,9 @@ var apply = function(selector) {
       , {title: "Number", field: "sum"}
     ]]
     , edit: true
-    , singleSelect: true //false allow multi select
-    , selectChange: function(selected, rowIndex, rowData, $row) {
+    , singleSelect  : true //false allow multi select
+    , selectedClass : 'danger'
+    , selectChange  : function(selected, rowIndex, rowData, $row) {
         //allow multi-select
         //console.log(selected, rowIndex, rowData, $row);
       }

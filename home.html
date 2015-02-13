@@ -584,7 +584,8 @@ section > .container > h1 {
           , {title: "Number", field: "sum"}
         ]]
         , edit: true
-        , singleSelect: true //false allow multi select
+        , singleSelect:  true //false allow multi select
+        , selectedClass: 'danger' //default: 'success'
         , selectChange: function(selected, rowIndex, rowData, $row) {
             //allow multi-select
             //console.log(selected, rowIndex, rowData, $row);
@@ -595,10 +596,16 @@ section > .container > h1 {
 
     <div class="col-lg-6">
       <p>
-        updateRow
+        updateRow(index)
         <a class="btn btn-success" onclick="run('#updateRow')">Run</a>
       </p>
       <pre class="prettyprint linenums" id="updateRow">$('#tablewrap2').datagrid("updateRow", {index: 0, row: {name: "Good luck", sum: new Date() }});</pre>
+
+      <p>
+        updateRow
+        <a class="btn btn-success" onclick="run('#updateRowNoIdx')">Run</a>
+      </p>
+      <pre class="prettyprint linenums" id="updateRowNoIdx">$('#tablewrap2').datagrid("updateRow", {row: {name: "Good luck", sum: new Date() }});</pre>
 
       <p>
         unselectRow(index)
@@ -618,6 +625,13 @@ section > .container > h1 {
       </p>
       <pre class="prettyprint linenums" id="getSelections">$('#tablewrap2').datagrid("getSelections");</pre>
       <pre id="getSelectionsResult"></pre>
+
+      <p>
+        getSelectedIndex
+        <a class="btn btn-success" onclick="run('#getSelectedIndex')">Run</a>
+      </p>
+      <pre class="prettyprint linenums" id="getSelectedIndex">$('#tablewrap2').datagrid("getSelectedIndex");</pre>
+      <pre id="getSelectedIndexResult"></pre>
 
       <p>
         getData
@@ -641,16 +655,28 @@ section > .container > h1 {
       <pre id="getColumnsResult"></pre>
 
       <p>
-        insertRow, index is optional (default is 0)
+        insertRow(index)
         <a class="btn btn-success" onclick="run('#insertRow')">Run</a>
       </p>
       <pre class="prettyprint linenums" id="insertRow">$('#tablewrap2').datagrid("insertRow", {index: 3, row: {"name":"new" + (Math.random() * 100 | 0)}});</pre>
 
       <p>
-        deleteRow
+        insertRow()
+        <a class="btn btn-success" onclick="run('#insertRowNoIdx')">Run</a>
+      </p>
+      <pre class="prettyprint linenums" id="insertRowNoIdx">$('#tablewrap2').datagrid("insertRow", {row: {"name":"new" + (Math.random() * 100 | 0)}});</pre>
+
+      <p>
+        deleteRow(index)
         <a class="btn btn-success" onclick="run('#deleteRow')">Run</a>
       </p>
       <pre class="prettyprint linenums" id="deleteRow">$('#tablewrap2').datagrid("deleteRow", 0);</pre>
+
+      <p>
+        deleteRow()
+        <a class="btn btn-success" onclick="run('#deleteRowNoIdx')">Run</a>
+      </p>
+      <pre class="prettyprint linenums" id="deleteRowNoIdx">$('#tablewrap2').datagrid("deleteRow");</pre>
 
     </div>
   </div>
