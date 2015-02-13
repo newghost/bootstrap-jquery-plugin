@@ -46,6 +46,8 @@ Author: Kris Zhang
       //clear old buttons
       $btnrow.empty();
 
+      var isButtonArr = buttons.constructor == Array;
+
       for (var button in buttons) {
         var btnObj  = buttons[button]
           , id      = ""
@@ -60,9 +62,14 @@ Author: Kris Zhang
           click   = btnObj.click;
         }
 
-        if (btnObj.constructor == Function) {
+        //Buttons should be an object, etc: { 'close': function { } }
+        else if (!isButtonArr && btnObj.constructor == Function) {
           text  = button;
           click = btnObj;
+        }
+
+        else {
+          continue;
         }
 
         //<button data-bb-handler="danger" type="button" class="btn btn-danger">Danger!</button>
