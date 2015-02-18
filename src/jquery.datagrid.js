@@ -118,10 +118,14 @@ require:
 
     var getSelectedIndex = function() {
       if (options && typeof options.index != "undefined") {
-        return options.index;
+        return [ options.index ];
       } else {
-        var $selRows = $this.find('tbody tr.' + selectedClass);
-        return $this.find('tbody tr').index($selRows);
+        var selected = [];
+        $this.find('tbody tr').each(function(index) {
+          var $tr = $(this);
+          $tr.hasClass(selectedClass) && selected.push(index)
+        });
+        return selected;
       }
     };
 
@@ -168,24 +172,26 @@ require:
     }
 
     if (method == "updateRow") {
-      var idx     = getSelectedIndex()
+      var ids     = getSelectedIndex()
         , row     = options.row
         , columns = conf.columns
         ;
 
-      if (idx < 0) return;
+      for (var i = 0, l = ids.length; i < l; i++) {
+        var id = ids[i];
 
-      rows && (row = $.extend(rows[idx], row));
+        rows && (row = $.extend(rows[id], row));
 
-      var $row = $(getRow(columns, row, conf));
+        var $row = $(getRow(columns, row, conf));
 
-      typeof options.index == "undefined" && $row.addClass(selectedClass);
+        typeof options.index == "undefined" && $row.addClass(selectedClass);
 
-      $("tbody tr", $this).eq(idx)
-        .after($row)
-        .remove();
+        $("tbody tr", $this).eq(id)
+          .after($row)
+          .remove();
 
-      bindRows($row);
+        bindRows($row);
+      }
     }
 
     if (method == "getSelections") {
@@ -203,11 +209,11 @@ require:
     }
 
     if (method == "insertRow") {
-      var idx   = getSelectedIndex()
+      var idx   = getSelectedIndex()[0]
         , row   = options.row
         ;
 
-      if (idx < 0) return;
+      if (typeof idx == 'undefined' || idx < 0) return;
 
       if (!conf || !row) return $this;
 
@@ -222,9 +228,10 @@ require:
     }
 
     if (method == "deleteRow") {
-      var idx = typeof options == "number" ? options : getSelectedIndex();
+      var ids = typeof options == "number" ? [ options ] : getSelectedIndex();
 
-      if (idx > -1) {
+      for (var i = ids.length - 1; i > -1; i--) {
+        var idx = ids[i];
         $("tbody tr", $this).eq(idx).remove();
         rows.splice(idx, 1);
       }
