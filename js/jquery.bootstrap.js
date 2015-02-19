@@ -292,11 +292,11 @@ require:
       , conf          = $this.data("config")  || {}
       , rows          = $this.data("rows")    || []
       , selectedClass = conf.selectedClass    || "success"
+      , singleSelect  = conf.singleSelect
       ;
 
     var bindRows = function($rows) {
       var selectChange  = conf.selectChange
-        , singleSelect  = conf.singleSelect
         , edit          = conf.edit
         ;
 
@@ -441,6 +441,21 @@ require:
 
     if (method == "getColumns") {
       return conf.columns;
+    }
+
+    if (method == "selectRow") {
+      if (typeof singleSelect ==  "undefined") {
+        return
+      }
+
+      if (typeof options == "number") {
+        singleSelect && $this.datagrid('unselectRow');
+        $("tbody tr", $this).eq(options).addClass(selectedClass);
+      }
+
+      else if(!singleSelect) {
+        $("tbody tr", $this).addClass(selectedClass);
+      }
     }
 
     if (method == "unselectRow") {

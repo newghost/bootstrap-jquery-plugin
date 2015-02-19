@@ -607,6 +607,19 @@ section > .container > h1 {
       </p>
       <pre class="prettyprint linenums" id="updateRowNoIdx">$('#tablewrap2').datagrid("updateRow", {row: {name: "Good luck", sum: new Date() }});</pre>
 
+
+      <p>
+        selectRow(index)
+        <a class="btn btn-success" onclick="run('#selectRow_idx')">Run</a>
+      </p>
+      <pre class="prettyprint linenums" id="selectRow_idx">$('#tablewrap2').datagrid("selectRow", 1);</pre>
+
+      <p>
+        selectRow
+        <a class="btn btn-success" onclick="run('#selectRow')">Run</a>
+      </p>
+      <pre class="prettyprint linenums" id="selectRow">$('#tablewrap2').datagrid("selectRow");</pre>
+
       <p>
         unselectRow(index)
         <a class="btn btn-success" onclick="run('#unselectRow_all')">Run</a>
