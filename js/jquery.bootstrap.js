@@ -506,7 +506,9 @@ require:
         , row   = options.row
         ;
 
-      if (typeof idx == 'undefined' || idx < 0) return;
+      if (typeof idx == 'undefined' || idx < 0) {
+        idx = rows.length
+      }
 
       if (!conf || !row) return $this;
 
