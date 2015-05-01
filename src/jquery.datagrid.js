@@ -97,6 +97,10 @@ require:
       var columns = conf.columns
         , rows    = options.rows || options;
 
+      if (!columns) {
+        return
+      }
+
       var body = "<tbody>";
       if (rows) {
         for (var i = 0, l = rows.length; i < l; i++) {

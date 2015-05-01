@@ -73,9 +73,7 @@ $.messager = (function() {
     + '</div>'
     ;
 
-  var $msgbox
-    , offTimer
-    ;
+  var $msgbox;
 
   var popup = function(message) {
     if (!$msgbox) {
@@ -86,8 +84,7 @@ $.messager = (function() {
     $msgbox.find(".modal-body").html(message);
     $msgbox.modal({show: true, backdrop: false});
 
-    clearTimeout(offTimer);
-    offTimer = setTimeout(function() {
+    setTimeout(function() {
       $msgbox.modal('hide');
     }, 1500);
   };
