@@ -119,7 +119,11 @@ Author: Kris Zhang
         closeHandler.call(self);
       });
       (options['class'] || options.classed) && $msgbox.addClass(options['class'] || options.classed);
-      options.autoOpen !== false && show();
+      /*
+      Passing the options, etc: backdrop, keyboard
+      */
+      options.autoOpen === false && (options.show = false)
+      $msgbox.modal(options)
     }
 
     if (options == "destroy") {

@@ -229,6 +229,20 @@ section > .container > h1 {
         </div>
       </form>
     </div>
+    <div id="loginwrap2">
+      <form id="loginform" role="form">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="username" class="form-control"
+           id="username">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control"
+          id="password">
+        </div>
+      </form>
+    </div>
   </div>
 
   <div class="row">
@@ -243,10 +257,20 @@ section > .container > h1 {
       $("#loginwrap").dialog({title:"Login"});
       </pre>
 
+      <h3>create ( with backdrop or keyboard )</h3>
+      <hr>
+      <p>
+        Create a dialog which doesn't close on click on the background.
+        <a class="btn btn-success" onclick="run('#prevCreateDialog2')">Run</a>
+      </p>
+      <pre id="prevCreateDialog2" class="prettyprint linenums">
+      $("#loginwrap2").dialog({title:"Login", backdrop: "static"});
+      </pre>
+
       <h3>create without auto open</h3>
       <hr>
       <p>
-        Create a dialog
+        Create a dialog with (autoOpen or show)
         <a class="btn btn-success" onclick="run('#prevCreateDialogWithoutAuto')">Run</a>
       </p>
       <pre id="prevCreateDialogWithoutAuto" class="prettyprint linenums">
