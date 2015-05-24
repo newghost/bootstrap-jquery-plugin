@@ -113,7 +113,7 @@ Author: Kris Zhang
       }
       createButton();
       $(".modal-title",  $msgbox).html(options.title || "");
-      $(".modal-dialog", $msgbox).addClass(options.dialogClass || "");
+      var $modalDialog = $(".modal-dialog", $msgbox).addClass(options.dialogClass || "");
       $(".modal-header .close", $msgbox).click(function() {
         var closeHandler = options.onClose || close;
         closeHandler.call(self);
@@ -123,6 +123,8 @@ Author: Kris Zhang
       Passing the options, etc: backdrop, keyboard
       */
       options.autoOpen === false && (options.show = false)
+      options.width  && $modalDialog.width(options.width)
+      options.height && $modalDialog.height(options.height)
       $msgbox.modal(options)
     }
 
