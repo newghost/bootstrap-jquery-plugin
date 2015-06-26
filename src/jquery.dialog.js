@@ -91,8 +91,11 @@ Author: Kris Zhang
     };
 
     var show = function() {
+      var modalOpts = options.modalOpts || {};
+      // always show the modal when this function is called
+      modalOpts.show = true;
       // call the bootstrap modal to handle the show events (fade effects, body class and backdrop div)
-      $msgbox.modal('show');
+      $msgbox.modal(modalOpts);
     };
 
     var close = function(destroy) {
