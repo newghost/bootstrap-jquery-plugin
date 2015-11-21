@@ -173,7 +173,7 @@ require:
 
 $.messager = (function() {
 
-  var alert = function(title, message) {
+  var alert = function(title, message, callback) {
     var model = $.messager.model;
 
     if (arguments.length < 2) {
@@ -192,6 +192,9 @@ $.messager = (function() {
           , classed: model.ok.classed || "btn-success"
           , click: function() {
               $(this).dialog("destroy");
+              if (callback && typeof callback === 'function') {
+                callback();
+              }
             }
         }]
     });
