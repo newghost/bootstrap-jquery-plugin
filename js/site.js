@@ -80,8 +80,6 @@ var apply = function(selector) {
 //tree
 (function() {
 
-  var $tree = $('#treewrap');
-
   window.treeDataArr = [
       {
           id:         "root"
@@ -114,6 +112,6 @@ var apply = function(selector) {
       }
   ];
 
-  $tree.tree({data: treeDataArr});
+  $('#folder').tree({data: treeDataArr});
 
 })();

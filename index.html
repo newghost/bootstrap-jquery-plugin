@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bootstrap - jQuery - Plugin</title>
 <link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/jquery.bootstrap.css" rel="stylesheet">
 <link href="css/prettify.css" rel="stylesheet">
 <!--[if lt IE 9]>
   <script src="js/html5shiv.js"></script>
@@ -725,17 +726,16 @@ section > .container > h1 {
 <div class="container">
   <h1>jquery.tree.js</h1>
   <hr>
+  <p>jquery tree view, depends on jquery.bootstrap.css</p>
   <div class="row">
     <div class="col-lg-6">
       <p>html</p>
       <pre class="prettyprint linenums">
-        &lt;ul id="treewrap"&gt;&lt;/ul&gt;
+        &lt;div id="folder"&gt;&lt;/div&gt;
       </pre>
-      <ul id="treewrap"></ul>
+      <div id="folder"></div>
       <p>codes</p>
       <pre class="prettyprint linenums">
-      var $tree = $('#treewrap');
-
       var treeDataArr = [
           {
               id:         "root"
@@ -768,21 +768,68 @@ section > .container > h1 {
           }
       ];
 
-      $tree.tree({data: treeDataArr});
+      $('#folder').tree({data: treeDataArr});
       </pre>
     </div>
     <div class="col-lg-6">
       <p>
-        onClick
-        <a class="btn btn-success" onclick="run('#onClick')">Run</a>
+        Custom icon and event (arrow)
+        <a class="btn btn-success" onclick="run('#customTree')">Run</a>
       </p>
-      <pre class="prettyprint linenums" id="onClick">
-      $('#treewrap').tree({
-          data:     treeDataArr
-        , onClick:  function(node, $link) {
-            console.log($(this), node, $link);
+      <pre class="prettyprint linenums" id="customTree">
+      var treeDataArr = [
+          {
+              id:         "root"
+            , text:       "Root"
+            , icon:       "glyphicon glyphicon-briefcase"
+            , children: [
+                  {
+                      id:         "tool"
+                    , text:       "Tool"
+                  }
+                , {
+                      id:         "users"
+                    , text:       "Users"
+                    , state:      "close"
+                    , children:   [
+                          {text: "Kris"}
+                        , {text: "Tom"}
+                        , {text: "Jerry"}
+                        , {text: "Dna"}
+                      ]
+                  }
+              ]
           }
-      });
+        , {
+                text:       "Guest"
+              , icon:       "glyphicon glyphicon-user"
+          }
+        , {
+              id:         "admin"
+            , text:       "Admin"
+            , icon:       "glyphicon glyphicon-cog"
+          }
+      ];
+
+      var $tree = $('#folder');
+
+      $tree.tree({
+          data       : treeDataArr
+        , folderIcon : 'glyphicon glyphicon-chevron-down'
+        , onClick    : function() {
+            console.log(arguments)
+          }
+      }).addClass('tree-arrow');
+      </pre>
+      <p>
+        Options and defaults
+      </p>
+      <pre>
+      , treeClass     = 'nav'
+      , activeClass   = 'active'
+      , folderIcon    = 'glyphicon glyphicon-folder-close'
+      , itemIcon      = 'glyphicon glyphicon-file'
+      , indentIcon    = ''
       </pre>
     </div>
   </div>
