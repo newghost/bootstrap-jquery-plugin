@@ -93,7 +93,7 @@ var apply = function(selector) {
             , {
                   id:         "users"
                 , text:       "Users"
-                , state:      "close"
+                , close:      true
                 , children:   [
                       {text: "Kris"}
                     , {text: "Tom"}
