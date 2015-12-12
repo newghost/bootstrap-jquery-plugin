@@ -1,0 +1,30 @@
+.tree-nav .nav {
+    display: none;
+}
+
+.tree-nav .active > .nav {
+    display: block;
+}
+
+.tree-folder,
+.tree-indent,
+.tree-item {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    height: 1em;
+    width: 1em;
+}
+
+.tree-folder,
+.tree-item {
+    margin-right: 6px;
+}
+
+.tree-nav .active > a .tree-folder:before {
+    content: "\e118"; /*folder open*/
+}
+
+.tree-arrow .active > a .tree-folder:before {
+    content: "\e113"; /*arrow up*/
+}
