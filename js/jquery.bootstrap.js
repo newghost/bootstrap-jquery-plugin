@@ -2,6 +2,7 @@
 * jquery.bootstrap.js
 Copyright (c) Kris Zhang <kris.newghost@gmail.com>
 License: MIT (https://github.com/newghost/bootstrap-jquery-plugin/blob/master/LICENSE)
+Version: 0.0.1
 */
 
 /* Extend string method */
@@ -376,8 +377,8 @@ Dependence: string.format.js
     var getData = function(edit) {
       if (!options) return;
 
-      var columns = conf.columns
-        , rows    = options.rows || options;
+      var columns = conf.columns;
+      rows = options.rows || options;
 
       if (!columns) {
         return
