@@ -3,8 +3,8 @@
 Copyright (c) Kris Zhang <kris.newghost@gmail.com>
 License: MIT (https://github.com/newghost/bootstrap-jquery-plugin/blob/master/LICENSE)
 */
-/* Extend string method */
 
+/* Extend string method */
 /*
 string.format, ref: http://stackoverflow.com/questions/610406/javascript-equivalent-to-printf-string-format/4673436#4673436
 */
@@ -18,9 +18,12 @@ if (!String.prototype.format) {
       ;
     });
   };
-}/*
+}
+
+/*
 Description: $.fn.dialog
 Author: Kris Zhang
+Dependence: N/A
 */
 ;(function($) {
 
@@ -175,14 +178,13 @@ Author: Kris Zhang
   };
 
 })(jQuery);
+
+
 /*
 Description: $.messager
 Author: Kris Zhang
-require: 
-  string.format.js
-  $.fn.dialog
+Dependence: string.format.js $.fn.dialog
 */
-
 $.messager = (function() {
 
   var alert = function(title, message) {
@@ -279,13 +281,12 @@ $.messager.model = {
     ok: { text : "OK", classed : 'btn-success' },
     cancel: { text : "Cancel", classed : 'btn-danger' }
 };
+
 /*
 Description: $.fn.datagrid
 Author: Kris Zhang
-require: 
-  string.format.js
+Dependence: string.format.js
 */
-
 (function($) {
 
   $.fn.datagrid = function(method, options) {
@@ -543,10 +544,13 @@ require:
   };
 
 
-})(jQuery);/*
-Dependence: string.js
-*/
+})(jQuery);
 
+/*
+Description: $.fn.tree
+Author: Kris Zhang
+Dependence: string.format.js
+*/
 (function($) {
 
   $.fn.tree = function(method, options) {
@@ -555,9 +559,10 @@ Dependence: string.js
       , $this         = $(self)
       , pushFn        = Array.prototype.push
       , treeClass     = 'nav'
-      , activeClass   = 'active'
-      , folderIcon    = 'glyphicon glyphicon-folder-close'
-      , itemIcon      = 'glyphicon glyphicon-file'
+      , activeClass   = 'active'    /*on LI*/
+      , selectedClass = 'selected'  /*on A*/
+      , folderIcon    = 'glyphicon'
+      , itemIcon      = 'glyphicon'
       , indentIcon    = ''
 
 
@@ -568,27 +573,30 @@ Dependence: string.js
 
       for (var i = 0, l = data.length; i < l; i++) {
         var node        = data[i]
-          , children    = node.children
+          , nodes       = node.nodes
           , id          = node.id
           , active      = node.active
           , classed     = node.classed
-          , attributes  = node.attributes
-          , iconClass   = node.icon || (children ? folderIcon : itemIcon)
+          , attr        = node.attr
+          , iconClass   = node.icon       || (nodes ? folderIcon : itemIcon)
+          , itemClass   = node.itemClass  || ''
 
 
-        tree.push('<li class="{0}">'.format(active ? activeClass : ''))
+        tree.push('<li class="{0} {1} {2}">'.format(active ? activeClass : '', nodes && nodes.length ? '' : 'no-child', itemClass))
 
-        icon = '<i class="{0}"></i>'.format(children ? ('tree-folder ' + iconClass) : ('tree-item ' + iconClass))
+        icon = '<i class="{0}"></i>'.format(nodes ? ('tree-folder ' + iconClass) : ('tree-item ' + iconClass))
 
-        var item = '<a{1}{2} class="{3}">{0}</a>'.format(
-            indent + icon + node.text
-          , id         ? " data-id='{0}'".format(id) : ""
-          , attributes ? " data-attr='{0}'".format(JSON.stringify(attributes)) : ""
+        var item = '<a{1}{2} class="{3}" data-path="{5}" title="{4}">{0}<span>{4}</span></a>'.format(
+            indent + icon
+          , id      ? " id='{0}'".format(id) : ""
+          , attr    ? " data-attr='{0}'".format(JSON.stringify(attr)) : ""
           , classed || ''
+          , node.text
+          , typeof node.path == 'undefined' ? node.text : node.path
         )
 
         tree.push(item)
-        children && pushFn.apply(tree, build(children, indent + '<i class="tree-indent {0}"></i>'.format(indentIcon)))
+        nodes && pushFn.apply(tree, build(nodes, indent + '<i class="tree-indent {0}"></i>'.format(indentIcon)))
         tree.push('</li>')
       }
 
@@ -597,52 +605,186 @@ Dependence: string.js
       return tree
     }
 
-    var bind = function() {
-      $("span.glyphicon-folder-open, span.glyphicon-folder-close", $this).click(function(e) {
-        var $icon     = $(this)
-          , $children = $icon.closest("li").children("ul")
+    /*
+    If no parameter provided, using selected nodes or return the whole tree
+    */
+    var getCurrentNode = function ($node) {
+      if (!$node) {
+        $node = $this.find('.' + selectedClass)
+      }
 
-        if ($icon.hasClass(icon_close)){
-          $icon.removeClass(icon_close).addClass(icon_open)
-          $children.show()
-        } else {
-          $icon.removeClass(icon_open).addClass(icon_close)
-          $children.hide()
-        }
-      })
+      if ($node.size() < 1) {
+        $node = $this
+      }
+
+      if ($node[0].tagName != 'A') {
+        $node = $node.find('>a')
+      }
+
+      return $node
     }
 
+    var getParents = function($node) {
+      $node = getCurrentNode($node)
+
+      var path      = []
+        , $parents  = $node.parents()
+        , size      = $parents.size()
+
+      for (var i = 0; i < size; i++) {
+        var $parent = $parents.eq(i)
+
+        if ($parent.hasClass('tree-nav')) {
+          return path
+        }
+
+        if ($parent[0].tagName == 'LI') {
+          var $link = $parent.find('>a')
+
+          path.push({
+              id      : $link.attr("id") || ''
+            , text    : $link.text()
+            , path    : $link.data('path') || ''
+            , attr    : JSON.parse($link.attr("data-attr") || '{}')
+          })
+        }
+      }
+
+      return path
+    }
+
+    var getChildren = function($node) {
+      $node = getCurrentNode($node)
+
+      var children = []
+
+      $node.parent().find('>ul>li>a').each(function() {
+        var $link = $(this)
+
+        children.push({
+            id    : $link.attr('id')
+          , path  : $link.data('path')
+          , text  : $link.text()
+          , attr  : JSON.parse($link.attr('data-attr') || '{}')
+        })
+      })
+
+      return children
+    }
+
+    var getPath = function(nodes) {
+      var pathArr = []
+
+      for (var i = nodes.length - 1; i > -1 ; i--) {
+        var node = nodes[i]
+        pathArr.push(node.path)
+      }
+
+      return pathArr.join('/')
+    }
+
+    var selectNode = function(path) {
+      var $node
+        , i
+
+      if (typeof path == 'string') {
+        var $path   = []
+          , $link
+          , pathArr = path.split('/')
+          , pathStr
+
+        $node = $this.find('>ul')
+
+        for (i = 0; i < pathArr.length; i++) {
+          pathStr = pathArr[i]
+          if (pathStr) {
+            $link = $node.find('>li>[data-path={0}]'.format(pathStr))
+          } else {
+            $link = $node.find('>li>[data-path]').filter(function() {
+              return !$(this).data('path')
+            })
+          }
+
+          if ($link.size() < 1 || $link.data('path') != pathStr) {
+            return null
+          }
+          $node = $link.parent().find('>ul')
+        }
+
+        $node = $link.parent()
+      } else {
+        $node = path
+      }
+
+      $node = getCurrentNode($node)
+      $node.click()
+
+      var $parents  = $node.parents('li')
+        , size      = $parents.size()
+
+      for (i = 0; i < size; i++) {
+        var $parent = $parents.eq(i)
+        $parent.addClass(activeClass)
+      }
+
+      return $node
+    }
+
+
     if (method && method.constructor == Object) {
-      treeClass   = method.treeClass    || treeClass
-      activeClass = method.activeClass  || activeClass
-      folderIcon  = typeof method.folderIcon == 'undefined' ? folderIcon  : method.folderIcon
-      itemIcon    = typeof method.itemIcon == 'undefined'   ? itemIcon    : method.itemIcon
-      indentIcon  = typeof method.indentIcon == 'undefined' ? indentIcon  : method.indentIcon
+      treeClass     = method.treeClass      || treeClass
+      activeClass   = method.activeClass    || activeClass
+      selectedClass = method.selectedClass  || selectedClass
+      folderIcon    = typeof method.folderIcon == 'undefined' ? folderIcon  : method.folderIcon
+      itemIcon      = typeof method.itemIcon == 'undefined'   ? itemIcon    : method.itemIcon
+      indentIcon    = typeof method.indentIcon == 'undefined' ? indentIcon  : method.indentIcon
 
       var data = method.data
       if (data && (data.constructor == Array)) {
         var htmlArr = build(data, '')
         $this.html(htmlArr.join(''))
         $this.data("config", method)
-        bind()
       }
 
       var clickHandler = method.onClick
 
       $("li>a", $this).click(function() {
         var $link = $(this)
-          , attrs = $link.attr("data-attr")
+          , $wrap = $link.closest('li')
+          , $prev = $this.find('a.' + selectedClass)
+          , attr  = $link.attr("data-attr")
 
-        $link.closest('li')
-          .toggleClass(activeClass)
+        $prev.removeClass(selectedClass)
+        $wrap.toggleClass(activeClass)
+        $link.addClass(selectedClass)
 
-        clickHandler && clickHandler.call(self, {
-            id          : $link.attr("data-id")
-          , attributes  : attrs ? JSON.parse(attrs) : {}
-          , text        : $link.text()
-        }, $link)
+        if (clickHandler) {
+          var nodes = getParents($link)
+            , path  = getPath(nodes)
+
+          clickHandler.call(self, {
+              id          : $link.attr("id")
+            , attr        : attr ? JSON.parse(attr) : {}
+            , text        : $link.text()
+            , nodes       : nodes
+            , path        : path
+          }, $link)
+        }
       })
     }
+
+    else if (method == 'getChildren') {
+      return getChildren(options)
+    }
+
+    else if (method == 'getParents') {
+      return getParents(options)
+    }
+
+    else if (method == 'select') {
+      return selectNode(options)
+    }
+
 
     return self
   };
