@@ -2,7 +2,7 @@
 * jquery.bootstrap.js
 Copyright (c) Kris Zhang <kris.newghost@gmail.com>
 License: MIT (https://github.com/newghost/bootstrap-jquery-plugin/blob/master/LICENSE)
-Version: 0.0.1
+Version: 0.0.2
 */
 
 /* Extend string method */
@@ -562,8 +562,8 @@ Dependence: string.format.js
       , treeClass     = 'nav'
       , activeClass   = 'active'    /*on LI*/
       , selectedClass = 'selected'  /*on A*/
-      , folderIcon    = 'glyphicon'
-      , itemIcon      = 'glyphicon'
+      , folderIcon    = 'glyphicon glyphicon-folder-close'
+      , itemIcon      = 'glyphicon glyphicon-file'
       , indentIcon    = ''
 
 

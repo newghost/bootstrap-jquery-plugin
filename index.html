@@ -740,8 +740,8 @@ section > .container > h1 {
           {
               id:         "root"
             , text:       "Root"
-            , attributes: { yourfield: "your value" }
-            , children: [
+            , attr: { yourfield: "your value" }
+            , nodes: [
                   {
                       id:         "tool"
                     , text:       "Tool"
@@ -749,8 +749,8 @@ section > .container > h1 {
                 , {
                       id:         "users"
                     , text:       "Users"
-                    , close:      true
-                    , children:   [
+                    , active:     true
+                    , nodes:   [
                           {text: "Kris"}
                         , {text: "Tom"}
                         , {text: "Jerry"}
@@ -782,7 +782,7 @@ section > .container > h1 {
               id:         "root"
             , text:       "Root"
             , icon:       "glyphicon glyphicon-briefcase"
-            , children: [
+            , nodes: [
                   {
                       id:         "tool"
                     , text:       "Tool"
@@ -790,8 +790,8 @@ section > .container > h1 {
                 , {
                       id:         "users"
                     , text:       "Users"
-                    , close:      true
-                    , children:   [
+                    , active:      true
+                    , nodes:   [
                           {text: "Kris"}
                         , {text: "Tom"}
                         , {text: "Jerry"}

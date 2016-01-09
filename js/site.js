@@ -84,8 +84,8 @@ var apply = function(selector) {
       {
           id:         "root"
         , text:       "Root"
-        , attributes: { yourfield: "your value" }
-        , children: [
+        , attr: { yourfield: "your value" }
+        , nodes: [
               {
                   id:         "tool"
                 , text:       "Tool"
@@ -93,8 +93,8 @@ var apply = function(selector) {
             , {
                   id:         "users"
                 , text:       "Users"
-                , close:      true
-                , children:   [
+                , active:      true
+                , nodes:   [
                       {text: "Kris"}
                     , {text: "Tom"}
                     , {text: "Jerry"}
