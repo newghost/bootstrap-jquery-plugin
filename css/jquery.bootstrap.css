@@ -1,3 +1,89 @@
+/*
+Bootstrap dialog override
+*/
+.modal-open {
+  overflow: visible;
+  padding-right: 0 !important;
+}
+
+.modal-header {
+  background: #f1f1f1;
+}
+
+.modal-content {
+  border-radius: 0;
+}
+
+.modal-footer {
+  background: #f1f1f1;
+  padding: 0;
+}
+
+.modal-footer .btn {
+  padding: 14px;
+  background-color: transparent;
+  border: none;
+  border-left: 1px solid #C0C0C0;
+  border-radius: 0;
+  color: #000;
+  min-width: 94px;
+}
+
+.modal-footer .btn-primary {
+  color: #fff;
+  background-color: #337ab7;
+  border-color: #2e6da4;
+}
+
+.modal-footer .btn + .btn {
+  margin: 0;
+}
+
+.modal.msg-popup {
+  top: auto;
+}
+
+.modal.msg-popup .modal-dialog {
+  width: 300px !important;
+  margin: 30px auto 60px;
+}
+
+.modal.msg-popup .modal-body {
+  background-color: #000;
+  color: #fff;
+}
+
+.modal.msg-popup .modal-content {
+  border: none;
+}
+
+.modal.msg-popup .modal-close-btn {
+    position: absolute;
+    top: 4px;
+    right: 0;
+    color: #999;
+    cursor: pointer;
+    padding: 12px;
+}
+
+/*.modal-sm .btn {
+  width: 49%;
+}*/
+
+
+.modal-backdrop.in {
+  display: none;
+}
+
+
+
+
+.tree-nav a {
+    color: #000;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
 .tree-nav .nav {
     display: none;
 }
@@ -5,6 +91,37 @@
 .tree-nav .active > .nav {
     display: block;
 }
+
+/*
+selected link
+*/
+.tree-nav a.selected,
+.tree-nav a.selected:hover {
+    background-color: #e5f1fc;
+}
+
+/*
+selected icon
+*/
+.tree-folder:before {
+    content: "\e117";
+}
+
+
+.active > a .tree-folder:before {
+    content: "\e118";
+}
+
+.tree-arrow .tree-folder:before{
+    content: "\e114";
+}
+
+.tree-arrow .active > a .tree-folder:before {
+    content: "\e113";
+}
+
+
+
 
 .tree-folder,
 .tree-indent,
@@ -16,15 +133,11 @@
     width: 1em;
 }
 
-.tree-folder,
-.tree-item {
+.tree-icon {
     margin-right: 6px;
 }
 
-.tree-nav .active > a .tree-folder:before {
-    content: "\e118"; /*folder open*/
-}
 
-.tree-arrow .active > a .tree-folder:before {
-    content: "\e113"; /*arrow up*/
+.tree-item {
+    color: #666;
 }

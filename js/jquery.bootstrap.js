@@ -2,7 +2,7 @@
 * jquery.bootstrap.js
 Copyright (c) Kris Zhang <kris.newghost@gmail.com>
 License: MIT (https://github.com/newghost/bootstrap-jquery-plugin/blob/master/LICENSE)
-Version: 0.0.2
+Version: 0.0.4
 */
 
 /* Extend string method */
@@ -137,7 +137,12 @@ Dependence: N/A
       }
       createButton();
       $(".modal-title",  $msgbox).html(options.title || "");
-      var $modalDialog = $(".modal-dialog", $msgbox).addClass(options.dialogClass || "");
+      var $modalDialog = $(".modal-dialog", $msgbox)
+
+      $modalDialog
+        .removeClass('modal-sm', 'modal-lg')
+        .addClass(options.dialogClass || "")
+
       $(".modal-header .close", $msgbox).click(function() {
         var closeHandler = options.onClose || close;
         closeHandler.call(self);
@@ -149,6 +154,7 @@ Dependence: N/A
       options.autoOpen === false && (options.show = false)
       options.width  && $modalDialog.width(options.width)
       options.height && $modalDialog.height(options.height)
+      typeof options.padding != 'undefined ' && $msgbox.find('.modal-body').css('padding', options.padding)
       $msgbox.modal(options)
     }
 
@@ -225,13 +231,12 @@ $.messager = (function() {
             text: model.ok.text
           , classed: model.ok.classed || "btn-success"
           , click: function() {
-              $(this).dialog("destroy");
               callback && callback();
+              $(this).dialog("destroy");
             }
-        },
-        {
+        },{
             text: model.cancel.text
-          , classed : model.cancel.classed || "btn-danger"
+          , classed : model.cancel.classed || ""
           , click: function() {
               $(this).dialog("destroy");
             }
@@ -248,6 +253,7 @@ $.messager = (function() {
     + '<div class="modal-dialog modal-sm">'
     +   '<div class="modal-content">'
     +     '<div class="modal-body text-center"></div>'
+    +     '<div class="modal-close-btn"><i class="glyphicon glyphicon-remove"></i></div>'
     +   '</div>'
     + '</div>'
     + '</div>'
@@ -264,9 +270,21 @@ $.messager = (function() {
     $msgbox.find(".modal-body").html(message);
     $msgbox.modal({show: true, backdrop: false});
 
+    // $msgbox.find('.modal-close-btn').on('click', function() {
+    //   $(this).closest('.dialog').remove()
+    // })
+
+    //click on background, close the message
+    $msgbox.on('click', function(e) {
+      if ($(e.target).closest('.modal-body').size()) {
+        return
+      }
+      $(this).remove()
+    })
+
     setTimeout(function() {
-      $msgbox.modal('hide');
-    }, 2000);
+      $msgbox.remove()
+    }, 60000);
   };
 
   return {
@@ -320,23 +338,30 @@ Dependence: string.format.js
         selectChange && selectChange(!hasSelectedClass, idx, row, $row);
       };
       (selectChange || typeof singleSelect != "undefined") && $rows.click(selectHandler);
-
-
-      var editHandler = function(e) {
-        var $input  = $(this)
-          , $row    = $input.closest("tr")
-          , idx     = $("tbody tr", $this).index($row)
-          , row     = rows[idx] || {}
-          , name    = $input.attr("name")
-          ;
-
-        name && (row[name] = $input.val());
-      }
-      edit && $rows.find("input").keyup(editHandler);
     };
+
+    var updateRows = function() {
+      $("tbody tr", $this).each(function(idx) {
+        var $row  = $(this)
+        var row   = rows[idx] || {}
+
+        $row.find('input[name]').each(function() {
+          var $input  = $(this)
+          var name    = $input.attr('name')
+
+          name && (row[name] = $input.val())
+        })
+
+        rows[idx] = row
+      })
+    }
 
     var getRow = function(columns, row) {
       var trow = "<tr>";
+
+      if (conf.rowClass) {
+        trow = '<tr class="' + conf.rowClass + '">'
+      }
 
       for (var j = 0, m = columns[0].length; j < m; j++) {
         var column = columns[0][j]
@@ -374,7 +399,7 @@ Dependence: string.format.js
       return trow;
     };
 
-    var getData = function(edit) {
+    var loadData = function(edit) {
       if (!options) return;
 
       var columns = conf.columns;
@@ -438,9 +463,10 @@ Dependence: string.format.js
     }
 
     //handle: $().datagrid("loadData", {rows: []}) or $().data("loadData", [])
-    if (method == "loadData") getData();
+    if (method == "loadData") loadData();
 
     if (method == "getData") {
+      updateRows();
       return rows;
     }
 
@@ -499,6 +525,7 @@ Dependence: string.format.js
     if (method == "getSelections") {
       var selRows = [];
 
+      updateRows();
       $("tbody tr", $this).each(function(idx) {
         $(this).hasClass(selectedClass) && selRows.push(rows[idx]);
       });
@@ -527,7 +554,7 @@ Dependence: string.format.js
         ;
 
       bindRows($row);
-      $tar.size() ? $tar.before($row) : $("tbody", $this).append($row);
+      $tar.size() ? $tar.after($row) : $("tbody", $this).append($row);
       rows.splice(idx, 0, row);
     }
 
@@ -562,8 +589,8 @@ Dependence: string.format.js
       , treeClass     = 'nav'
       , activeClass   = 'active'    /*on LI*/
       , selectedClass = 'selected'  /*on A*/
-      , folderIcon    = 'glyphicon glyphicon-folder-close'
-      , itemIcon      = 'glyphicon glyphicon-file'
+      , folderIcon    = ''
+      , itemIcon      = ''
       , indentIcon    = ''
 
 
@@ -579,21 +606,27 @@ Dependence: string.format.js
           , active      = node.active
           , classed     = node.classed
           , attr        = node.attr
-          , iconClass   = node.icon       || (nodes ? folderIcon : itemIcon)
+          , href        = node.href
+          , iconClass   = node.icon
           , itemClass   = node.itemClass  || ''
 
 
+        if ( !nodes && method.hideItem ) {
+          continue
+        }
+
         tree.push('<li class="{0} {1} {2}">'.format(active ? activeClass : '', nodes && nodes.length ? '' : 'no-child', itemClass))
 
-        icon = '<i class="{0}"></i>'.format(nodes ? ('tree-folder ' + iconClass) : ('tree-item ' + iconClass))
+        icon = '<i class="tree-icon {0} {1}"></i>'.format(iconClass || (nodes ? 'glyphicon tree-folder' : 'glyphicon tree-item'),  iconClass ? '' :  (nodes ? folderIcon : itemIcon))
 
-        var item = '<a{1}{2} class="{3}" data-path="{5}" title="{4}">{0}<span>{4}</span></a>'.format(
+        var item = '<a{1}{2} class="{3}" data-path="{5}" title="{4}" href="{6}">{0}<span>{4}</span></a>'.format(
             indent + icon
           , id      ? " id='{0}'".format(id) : ""
           , attr    ? " data-attr='{0}'".format(JSON.stringify(attr)) : ""
           , classed || ''
           , node.text
           , typeof node.path == 'undefined' ? node.text : node.path
+          , href || '#'
         )
 
         tree.push(item)
@@ -619,7 +652,9 @@ Dependence: string.format.js
       }
 
       if ($node[0].tagName != 'A') {
-        $node = $node.find('>a')
+        var $tmp = $node.find('>a')
+
+        $node = $tmp.size() ? $tmp : $node.closest('a')
       }
 
       return $node
@@ -698,8 +733,9 @@ Dependence: string.format.js
 
         for (i = 0; i < pathArr.length; i++) {
           pathStr = pathArr[i]
-          if (pathStr) {
-            $link = $node.find('>li>[data-path={0}]'.format(pathStr))
+          //jquery will popup error
+          if (pathStr && pathStr != '#') {
+            $link = $node.find('>li>[data-path="{0}"]'.format(pathStr))
           } else {
             $link = $node.find('>li>[data-path]').filter(function() {
               return !$(this).data('path')
@@ -731,6 +767,44 @@ Dependence: string.format.js
       return $node
     }
 
+    var updateNode = function(update) {
+      var $node = getCurrentNode()
+
+      typeof update.id   != 'undefined' && $node.attr('id'   , update.id)
+      typeof update.path != 'undefined' && $node.data('path' , update.path)
+      typeof update.text != 'undefined' && $node.find('span').text(update.text)
+      typeof update.attr != 'undefined' && $node.data('attr', JSON.stringify(update.attr))
+
+      return $this
+    }
+
+    var removeNode = function(update) {
+      var $node = getCurrentNode()
+      $node.closest('a').remove()
+      return $this
+    }
+
+    var insertNode = function(nodes) {
+      var $parent = getCurrentNode()
+
+      if (!$parent.size() || !nodes.length) {
+        return
+      }
+
+      var deepth = $parent.find('.tree-indent').size()
+        , indent = ''
+
+      for (var i = 0; i <= deepth; i++) {
+        indent += '<i class="tree-indent"></i>'
+      }
+
+      //去除ul即为添加的nodes
+      var nodes = $(build(nodes, indent).join('')).html()
+
+      $parent.closest('li').find('>ul').prepend(nodes)
+
+      return $this
+    }
 
     if (method && method.constructor == Object) {
       treeClass     = method.treeClass      || treeClass
@@ -749,29 +823,51 @@ Dependence: string.format.js
 
       var clickHandler = method.onClick
 
-      $("li>a", $this).click(function() {
+      var onIcon = function() {
+        var $wrap = $(this).closest('li')
+        $wrap.toggleClass(activeClass)
+      }
+
+      var onLink = function(e) {
         var $link = $(this)
-          , $wrap = $link.closest('li')
+          , $item = $link.closest('li')
           , $prev = $this.find('a.' + selectedClass)
           , attr  = $link.attr("data-attr")
 
         $prev.removeClass(selectedClass)
-        $wrap.toggleClass(activeClass)
         $link.addClass(selectedClass)
+
+        e.preventDefault()
+
+        /*
+        只有没有点击在图标上才进行判断
+        */
+        if (e.target.tagName != 'I') {
+          if ($item.hasClass(activeClass)) {
+            method.closeOnClick   !== false && $item.removeClass(activeClass)
+          } else {
+            method.expandOnClick  !== false && $item.addClass(activeClass)
+          }
+        }
 
         if (clickHandler) {
           var nodes = getParents($link)
             , path  = getPath(nodes)
 
-          clickHandler.call(self, {
+          clickHandler.call(self, e, {
               id          : $link.attr("id")
             , attr        : attr ? JSON.parse(attr) : {}
             , text        : $link.text()
             , nodes       : nodes
             , path        : path
+            , href        : $link.attr('href')
           }, $link)
         }
-      })
+      }
+
+      //It may trigger many times, turn the previous event handler off
+      $this.off('click', 'li>a>i').on('click', 'li>a>i', onIcon)
+      $this.off('click', 'li>a').on('click', "li>a", onLink)
     }
 
     else if (method == 'getChildren') {
@@ -782,8 +878,38 @@ Dependence: string.format.js
       return getParents(options)
     }
 
+    else if (method == 'getPath') {
+      return getPath(getParents(options))
+    }
+
     else if (method == 'select') {
       return selectNode(options)
+    }
+
+    else if (method == 'update') {
+      return updateNode(options)
+    }
+
+    else if (method == 'remove') {
+      return removeNode(options)
+    }
+
+    else if (method == 'insert') {
+      return insertNode(options)
+    }
+
+    else if (method == 'getSelected') {
+      var $node = getCurrentNode()
+      return {
+          id   : $node.attr('id')
+        , text : $node.find('span').text()
+        , path : $node.data('path')
+        , attr : JSON.parse($node.data('attr') || '{}')
+      }
+    }
+
+    else if (method == 'getSelectedNode') {
+      return getCurrentNode()
     }
 
 
