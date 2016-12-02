@@ -43,7 +43,7 @@ Dependence: N/A
 
       var msghtml
         = ''
-        + '<div class="dialog modal fade">'
+        + '<div class="dialog modal fade" tabindex="-1" role="dialog">'
         + '<div class="modal-dialog">'
         +   '<div class="modal-content">'
         +     '<div class="modal-header">'
