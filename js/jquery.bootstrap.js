@@ -185,7 +185,7 @@ require:
 
 $.messager = (function() {
 
-  var alert = function(title, message) {
+  var alert = function(title, message, okCallback, closeCallback) {
     var model = $.messager.model;
 
     if (arguments.length < 2) {
@@ -198,18 +198,20 @@ $.messager = (function() {
         // override destroy methods;
       , onClose: function() {
           $(this).dialog("destroy");
+          closeCallback && closeCallback();
         }
       , buttons: [{
             text: model.ok.text
           , classed: model.ok.classed || "btn-success"
           , click: function() {
               $(this).dialog("destroy");
+              okCallback && okCallback();
             }
         }]
     });
   };
 
-  var confirm = function(title, message, callback) {
+  var confirm = function(title, message, okCallback, cancelCallback) {
     var model = $.messager.model;
 
     $("<div>" + message + "</div>").dialog({
@@ -217,13 +219,14 @@ $.messager = (function() {
         // override destroy methods;
       , onClose: function() {
           $(this).dialog("destroy");
+          cancelCallback && cancelCallback();
         }
       , buttons: [{
             text: model.ok.text
           , classed: model.ok.classed || "btn-success"
           , click: function() {
               $(this).dialog("destroy");
-              callback && callback();
+              okCallback && okCallback();
             }
         },
         {
@@ -231,6 +234,7 @@ $.messager = (function() {
           , classed : model.cancel.classed || "btn-danger"
           , click: function() {
               $(this).dialog("destroy");
+              cancelCallback && cancelCallback();
             }
         }]
     });
