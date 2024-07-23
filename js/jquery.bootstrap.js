@@ -132,7 +132,7 @@ Dependence: N/A
     if (options.constructor == Object) {
       !$this.data(parentDataName) && $this.data(parentDataName, $this.parent());
 
-      if ($msgbox.size() < 1) {
+      if ($msgbox.length < 1) {
         create();
       }
       createButton();
@@ -262,7 +262,7 @@ $.messager = (function() {
   var $msgbox = $('.dialog.msg-popup')
 
   var popup = function(message) {
-    if (!$msgbox.size()) {
+    if (!$msgbox.length) {
       $msgbox = $(msghtml);
       $('body').append($msgbox);
     }
@@ -276,7 +276,7 @@ $.messager = (function() {
 
     //click on background, close the message
     $msgbox.on('click', function(e) {
-      if ($(e.target).closest('.modal-body').size()) {
+      if ($(e.target).closest('.modal-body').length) {
         return
       }
       $(this).remove()
@@ -446,7 +446,7 @@ Dependence: string.format.js
       var columns = method.columns;
  
       if (columns) {
-        $("thead", $this).size() < 1
+        $("thead", $this).length < 1
           && $this.append("<thead></thead>");
 
         var header = "<tr>";
@@ -554,7 +554,7 @@ Dependence: string.format.js
         ;
 
       bindRows($row);
-      $tar.size() ? $tar.after($row) : $("tbody", $this).append($row);
+      $tar.length ? $tar.after($row) : $("tbody", $this).append($row);
       rows.splice(idx, 0, row);
     }
 
@@ -647,14 +647,14 @@ Dependence: string.format.js
         $node = $this.find('.' + selectedClass)
       }
 
-      if ($node.size() < 1) {
+      if ($node.length < 1) {
         $node = $this
       }
 
       if ($node[0].tagName != 'A') {
         var $tmp = $node.find('>a')
 
-        $node = $tmp.size() ? $tmp : $node.closest('a')
+        $node = $tmp.length ? $tmp : $node.closest('a')
       }
 
       return $node
@@ -665,7 +665,7 @@ Dependence: string.format.js
 
       var path      = []
         , $parents  = $node.parents()
-        , size      = $parents.size()
+        , size      = $parents.length
 
       for (var i = 0; i < size; i++) {
         var $parent = $parents.eq(i)
@@ -742,7 +742,7 @@ Dependence: string.format.js
             })
           }
 
-          if ($link.size() < 1 || $link.data('path') != pathStr) {
+          if ($link.length < 1 || $link.data('path') != pathStr) {
             return null
           }
           $node = $link.parent().find('>ul')
@@ -757,7 +757,7 @@ Dependence: string.format.js
       $node.click()
 
       var $parents  = $node.parents('li')
-        , size      = $parents.size()
+        , size      = $parents.length
 
       for (i = 0; i < size; i++) {
         var $parent = $parents.eq(i)
@@ -787,11 +787,11 @@ Dependence: string.format.js
     var insertNode = function(nodes) {
       var $parent = getCurrentNode()
 
-      if (!$parent.size() || !nodes.length) {
+      if (!$parent.length || !nodes.length) {
         return
       }
 
-      var deepth = $parent.find('.tree-indent').size()
+      var deepth = $parent.find('.tree-indent').length
         , indent = ''
 
       for (var i = 0; i <= deepth; i++) {
